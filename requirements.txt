@@ -1,2 +1,5 @@
+h5py
+numpy
+scipy
 guidata
 guiqwt
