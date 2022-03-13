@@ -23,7 +23,7 @@ copyright = "2022, CODRA - " + author
 html_logo = latex_logo = "_static/codraft_logo_190.png"
 
 # The full version, including alpha/beta/rc tags
-release = "1.7.1"
+release = "1.7"
 
 
 # -- General configuration ---------------------------------------------------
@@ -31,7 +31,7 @@ release = "1.7.1"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.autodoc"]
+# extensions = []
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
