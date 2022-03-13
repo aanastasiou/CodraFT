@@ -23,9 +23,7 @@ copyright = "2022, CODRA - " + author
 html_logo = latex_logo = "_static/codraft_logo_190.png"
 
 # The full version, including alpha/beta/rc tags
-from codraft import __version__
-
-release = __version__
+release = "1.7.1"
 
 
 # -- General configuration ---------------------------------------------------
