@@ -1,5 +1,2 @@
-h5py
-numpy
-scipy
+# Requirements for documentation build
 guidata
-guiqwt
