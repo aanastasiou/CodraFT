@@ -203,7 +203,7 @@ class ObjectFT(QW.QSplitter, metaclass=ObjectFTMeta):
             self,
             _("View in a new window"),
             icon=get_icon("libre-gui-binoculars.svg"),
-            triggered=self.item_double_clicked,
+            triggered=self.open_separate_view,
         )
         self.actlist_1more += [view_action]
         return [view_action]

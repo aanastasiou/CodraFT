@@ -1,5 +1,14 @@
 # CodraFT Releases #
 
+## Version 1.7.1 ##
+
+Added first page of documentation (there is a beginning to everything...).
+
+Bug fixes:
+
+* Cross section tool was working only on first image in item list
+* Separate view was broken since major refactoring
+
 ## Version 1.7.0 ##
 
 New features:

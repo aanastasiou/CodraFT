@@ -56,7 +56,7 @@ class GaussLorentzVoigtParam(DataSet):
 
 def create_signal_gui(parent, size=None):
     """Create a new Signal object from a dialog box"""
-    global SIG_NB
+    global SIG_NB  # pylint: disable=global-statement
     signalnew = SignalParamNew(title=_("Create a new signal"))
     if size is not None:
         signalnew.size = size
@@ -131,7 +131,7 @@ IMG_NB = 0
 
 def create_image_gui(parent, width=None, height=None):
     """Create a new Image object from dialog box"""
-    global IMG_NB
+    global IMG_NB  # pylint: disable=global-statement
     imagenew = ImageParamNew(title=_("Create a new image"))
     if width is not None:
         imagenew.width = width

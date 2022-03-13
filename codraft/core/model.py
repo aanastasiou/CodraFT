@@ -289,6 +289,7 @@ def create_signal(
     ylabel=None,
 ):
     """Create a new Signal object"""
+    assert isinstance(title, str)
     signal = SignalParam()
     signal.title = title
     signal.set_xydata(x, y, dx=dx, dy=dy)
@@ -315,6 +316,8 @@ def create_image(
     zlabel=None,
 ):
     """Create a new Image object"""
+    assert isinstance(title, str)
+    assert isinstance(data, np.ndarray)
     image = ImageParam()
     image.title = title
     image.data = data

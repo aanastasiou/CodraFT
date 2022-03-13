@@ -24,7 +24,8 @@ from guidata.utils import get_package_data, get_subpackages
 from codraft import __version__ as version
 from codraft.utils import dephash
 
-LIBNAME = "codraft"
+LIBNAME = "CodraFT"
+MODNAME = LIBNAME.lower()
 
 DESCRIPTION = "Signal and image processing software"
 LONG_DESCRIPTION = """\
@@ -39,10 +40,14 @@ guidata and guiqwt libraries).
 
 CodraFT stands for "CODRA Filtering Tool".
 
+See `documentation`_ for more details on the library and `changelog`_ for
+recent history of changes.
+
 Copyright © 2018-2022 CODRA, Pierre Raybaut
 Copyright © 2009-2015 CEA, Pierre Raybaut
 Licensed under the terms of the `CECILL License`_.
 
+.. _documentation: https://codraft.readthedocs.io/en/latest/
 .. _changelog: https://github.com/CODRA-Software/CodraFT/blob/master/CHANGELOG.md
 .. _CECILL License: https://github.com/CODRA-Software/CodraFT/blob/master/Licence_CeCILL_V2.1-en.txt
 """
@@ -66,16 +71,23 @@ setup(
     version=version,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
-    packages=get_subpackages(LIBNAME),
+    packages=get_subpackages(MODNAME),
     package_data={
-        LIBNAME: get_package_data(
-            LIBNAME, (".png", ".svg", ".mo", ".txt", ".h5", ".sig", ".csv")
+        MODNAME: get_package_data(
+            MODNAME, (".png", ".svg", ".mo", ".txt", ".h5", ".sig", ".csv")
         )
     },
-    entry_points={"gui_scripts": ["codraft = codraft.app:run"]},
+    install_requires=[
+        "NumPy>=1.21",
+        "SciPy>=1.7",
+        "guidata>=2.0.4",
+        "guiqwt>=4.0.2",
+        "QtPy>=1.9",
+    ],
+    entry_points={"gui_scripts": [f"{MODNAME} = {MODNAME}.app:run"]},
     author="Pierre Raybaut",
-    author_email="pierre.raybaut@gmail.com",
-    url="https://github.com/PierreRaybaut/%s" % LIBNAME,
+    author_email="p.raybaut@codra.fr",
+    url=f"https://github.com/CODRA-Software/{LIBNAME}",
     license="CeCILL V2",
     classifiers=CLASSIFIERS
     + [

@@ -38,6 +38,7 @@ from codraft.core.gui.docks import DockablePlotWidget, DockableTabWidget
 from codraft.core.gui.h5io import H5InputOutput
 from codraft.core.gui.image import ImageFT
 from codraft.core.gui.signal import SignalFT
+from codraft.core.model import ImageParam, SignalParam
 from codraft.utils import dephash
 
 
@@ -204,11 +205,16 @@ class CodraFTMainWindow(QW.QMainWindow):
         imagewidget = DockablePlotWidget(self, ImageWidget, imagevis_toolbar)
         self.imageft = ImageFT(self, imagewidget)
         self.imageft.setup(self.image_toolbar)
-        for cspanel in (
-            self.imageft.plotwidget.get_xcs_panel(),
-            self.imageft.plotwidget.get_ycs_panel(),
-        ):
-            cspanel.peritem_ac.setChecked(False)
+        # -----------------------------------------------------------------------------
+        # # Before eventually disabling the "peritem" mode by default, wait for the
+        # # guiqwt bug to be fixed (peritem mode is not compatible with multiple image
+        # # items):
+        # for cspanel in (
+        #     self.imageft.plotwidget.get_xcs_panel(),
+        #     self.imageft.plotwidget.get_ycs_panel(),
+        # ):
+        #     cspanel.peritem_ac.setChecked(False)
+        # -----------------------------------------------------------------------------
         self.imageft.SIG_STATUS_MESSAGE.connect(self.statusBar().showMessage)
         return imagewidget
 
@@ -395,6 +401,15 @@ class CodraFTMainWindow(QW.QMainWindow):
             if not filename.endswith(".h5"):
                 raise IOError(f'Invalid HDF5 file "{bname}"')
         self.h5import.open(filename, import_all, reset_all)
+
+    def add_object(self, obj, refresh=True):
+        """Add object - signal or image"""
+        if isinstance(obj, SignalParam):
+            self.signalft.add_object(obj, refresh=refresh)
+        elif isinstance(obj, ImageParam):
+            self.imageft.add_object(obj, refresh=refresh)
+        else:
+            raise TypeError(f"Unsupported object type {type(obj)}")
 
     # ------?
     def about(self):

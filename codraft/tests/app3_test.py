@@ -22,7 +22,6 @@ from codraft.tests.data import create_noisy_2d_gaussian, create_test_2d_data
 SHOW = True  # Show test in GUI-based test launcher
 
 
-# FIXME: Cross section tool works only on first image
 def test():
     """Simple test"""
     shape = (2000, 2000)

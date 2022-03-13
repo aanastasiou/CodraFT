@@ -13,7 +13,6 @@ from qtpy import QtGui as QG
 from qtpy import QtWidgets as QW
 
 from codraft.core.gui.main import CodraFTMainWindow
-from codraft.core.model import ImageParam, SignalParam
 from codraft.utils.qthelpers import qt_app_context
 
 
@@ -35,10 +34,7 @@ def run(console=True, objects=None, h5file=None, size=None):
             window.open_hdf5_file(h5file, import_all=True)
         if objects is not None:
             for obj in objects:
-                if isinstance(obj, SignalParam):
-                    window.signalft.add_object(obj)
-                elif isinstance(obj, ImageParam):
-                    window.imageft.add_object(obj)
+                window.add_object(obj)
         window.show()
         window.check_dependencies()
         if size is not None:
