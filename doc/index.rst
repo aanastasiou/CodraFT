@@ -1,5 +1,4 @@
-CodraFT
-=======
+.. image:: images/codraft_banner.png
 
 CodraFT is a generic signal and image processing software based on Python scientific
 libraries (such as NumPy, SciPy or OpenCV) and Qt graphical user interfaces (thanks to

@@ -9,11 +9,13 @@ CodraFT main window
 
 # pylint: disable=invalid-name  # Allows short reference names like x, y, ...
 
+import locale
 import os
 import os.path as osp
 import platform
 import sys
 import time
+import webbrowser
 
 import numpy as np
 import scipy.ndimage as spi
@@ -31,7 +33,7 @@ from qtpy import QtWidgets as QW
 from qtpy.compat import getopenfilename, getsavefilename
 from qwt import __version__ as qwt_ver
 
-from codraft import __version__
+from codraft import __version__, __docurl__
 from codraft.config import APP_DESC, APP_NAME, _
 from codraft.core.gui.base import ActionCategory
 from codraft.core.gui.docks import DockablePlotWidget, DockableTabWidget
@@ -40,6 +42,19 @@ from codraft.core.gui.image import ImageFT
 from codraft.core.gui.signal import SignalFT
 from codraft.core.model import ImageParam, SignalParam
 from codraft.utils import dephash
+
+
+DATAPATH = get_module_data_path("codraft", "data")
+
+
+def get_htmlhelp():
+    """Return HTML Help documentation link adapted to locale, if it exists"""
+    if os.name == "nt":
+        for suffix in ("_" + locale.getlocale()[0][:2], ""):
+            path = osp.join(DATAPATH, f"CodraFT{suffix}.chm")
+            if osp.isfile(path):
+                return path
+    return None
 
 
 class AppProxy:
@@ -113,11 +128,10 @@ class CodraFTMainWindow(QW.QMainWindow):
         if is_frozen("codraft"):
             # No need to check dependencies if CodraFT has been frozen
             return
-        datapath = get_module_data_path("codraft", "data")
         try:
-            state = dephash.check_dependencies_hash(datapath)
+            state = dephash.check_dependencies_hash(DATAPATH)
         except IOError:
-            fname = osp.join(datapath, dephash.DEPFILENAME)
+            fname = osp.join(DATAPATH, dephash.DEPFILENAME)
             txt = _("Unable to open file") + " " + fname
             QW.QMessageBox.critical(self, APP_NAME, txt)
             return
@@ -262,7 +276,34 @@ class CodraFTMainWindow(QW.QMainWindow):
             icon=get_icon("libre-gui-about.svg"),
             triggered=self.about,
         )
-        add_actions(help_menu, (about_action,))
+        onlinedoc_action = create_action(
+            self,
+            _("Online documentation"),
+            icon=get_icon("libre-gui-help.svg"),
+            triggered=lambda: webbrowser.open(__docurl__),
+        )
+        chmdoc_action = create_action(
+            self,
+            _("CHM documentation"),
+            icon=get_icon("chm.svg"),
+            triggered=lambda: os.startfile(get_htmlhelp()),
+        )
+        chmdoc_action.setVisible(get_htmlhelp() is not None)
+        about_action = create_action(
+            self,
+            _("About..."),
+            icon=get_icon("libre-gui-about.svg"),
+            triggered=self.about,
+        )
+        add_actions(
+            help_menu,
+            (
+                onlinedoc_action,
+                chmdoc_action,
+                None,
+                about_action,
+            ),
+        )
 
     def setup_console(self):
         """Add an internal console"""

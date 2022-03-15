@@ -21,6 +21,7 @@ import setuptools  # analysis:ignore
 from guidata.configtools import get_module_data_path
 from guidata.utils import get_package_data, get_subpackages
 
+from codraft import __docurl__
 from codraft import __version__ as version
 from codraft.utils import dephash
 
@@ -28,7 +29,7 @@ LIBNAME = "CodraFT"
 MODNAME = LIBNAME.lower()
 
 DESCRIPTION = "Signal and image processing software"
-LONG_DESCRIPTION = """\
+LONG_DESCRIPTION = f"""\
 CodraFT: Signal and Image Processing Software
 =============================================
 
@@ -47,7 +48,7 @@ Copyright © 2018-2022 CODRA, Pierre Raybaut
 Copyright © 2009-2015 CEA, Pierre Raybaut
 Licensed under the terms of the `CECILL License`_.
 
-.. _documentation: https://codraft.readthedocs.io/en/latest/
+.. _documentation: {__docurl__}
 .. _changelog: https://github.com/CODRA-Software/CodraFT/blob/master/CHANGELOG.md
 .. _CECILL License: https://github.com/CODRA-Software/CodraFT/blob/master/Licence_CeCILL_V2.1-en.txt
 """
@@ -74,7 +75,7 @@ setup(
     packages=get_subpackages(MODNAME),
     package_data={
         MODNAME: get_package_data(
-            MODNAME, (".png", ".svg", ".mo", ".txt", ".h5", ".sig", ".csv")
+            MODNAME, (".png", ".svg", ".mo", ".chm", ".txt", ".h5", ".sig", ".csv")
         )
     },
     install_requires=[

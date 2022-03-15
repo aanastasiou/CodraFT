@@ -16,6 +16,7 @@ libraries (such as NumPy, SciPy or OpenCV) and Qt graphical user interfaces (tha
 """
 
 __version__ = "1.7.1"
+__docurl__ = "https://codraft.readthedocs.io/en/latest/"
 
 import codraft.patch  # analysis:ignore
 
