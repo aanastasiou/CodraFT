@@ -17,63 +17,6 @@ CodraFT is a generic signal and image processing software based on Python scient
 libraries (such as NumPy, SciPy or OpenCV) and Qt graphical user interfaces (thanks to
 [guidata](https://pypi.python.org/pypi/guidata) and [guiqwt](https://pypi.python.org/pypi/guiqwt) libraries).
 
-----
-
-## Key features
-
-### Data visualization
-
-|                                       | Signal | Image      |
-|---------------------------------------|--------|------------|
-| Lin/log scales                        | •      | • (Z-axis) |
-| Data table editing                    | •      | •          |
-| Statistics on user-defined ROI        | •      | •          |
-| Markers                               | •      | •          |
-| Aspect ratio (1:1, custom)            |        | •          |
-| 50+ colormaps                         |        | •          |
-| Screenshots (save, copy)              | •      | •          |
-| X/Y cross-sections                    |        | •          |
-| Averaged X/Y cross-sections           |        | •          |
-| Export cross-sections to signal panel |        | •          |
-
-![CodraFT - CODRA's Filtering Tool](https://raw.githubusercontent.com/CODRA-Software/CodraFT/master/doc/images/panorama.png)
-
-### Operations
-
-|                                        | Signal | Image |
-|----------------------------------------|--------|-------|
-| Sum, average, difference, product, ... | •      | •     |
-| ROI extraction, Swap X/Y axes          | •      | •     |
-| Peak detection                         | •      |       |
-| Rotation (flip, rotate), resize, ...   |        | •     |
-| Flat-field correction                  |        | •     |
-
-![CodraFT - CODRA's Filtering Tool](https://raw.githubusercontent.com/CODRA-Software/CodraFT/master/doc/images/peak_detection.png)
-
-### Processing
-
-|                                        | Signal | Image |
-|----------------------------------------|--------|-------|
-| Normalize, derivative, integral        | •      |       |
-| Linear calibration                     | •      | •     |
-| Thresholding, clipping                 |        | •     |
-| Gaussian filter, Wiener filter         | •      | •     |
-| Moving average, moving median          | •      | •     |
-| FFT, inverse FFT                       | •      | •     |
-| Fit: Gauss, Lorenzt, Voigt, polynomial | •      |       |
-| Multigaussian fit                      | •      |       |
-
-## Computing
-
-|                                    | Signal | Image |
-|------------------------------------|--------|-------|
-| Computing on custom ROI            | •      | •     |
-| FWHM, FW @ 1/e²                    | •      |       |
-| Centroid (robust method w/r noise) |        | •     |
-| Minimum enclosing circle center    |        | •     |
-
-----
-
 See [documentation](https://codraft.readthedocs.io/en/latest/) for more details on
 the library and [changelog](CHANGELOG.md) for recent history of changes.
 
@@ -81,6 +24,51 @@ Copyrights and licensing:
 
 * Copyright © 2018 [CEA](http://www.cea.fr)-[CODRA](https://codra.net/), Pierre Raybaut
 * Licensed under the terms of the CECILL License. See ``Licence_CeCILL_V2.1-en.txt``.
+
+----
+
+## Key features
+
+### Data visualization
+
+| Signal |  Image | Feature                        |
+|:------:|:------:|--------------------------------|
+|    •   |    •   | Screenshots (save, copy)       |
+|    •   | Z-axis | Lin/log scales                 |
+|    •   |    •   | Data table editing             |
+|    •   |    •   | Statistics on user-defined ROI |
+|    •   |    •   | Markers                        |
+|        |    •   | Aspect ratio (1:1, custom)     |
+|        |    •   | 50+ available colormaps        |
+|        |    •   | X/Y raw/averaged profiles      |
+
+![Peak detection](https://raw.githubusercontent.com/CODRA-Software/CodraFT/master/doc/images/peak_detection.png)
+
+### Data processing
+
+| Signal | Image | Feature                                            |
+|:------:|:-----:|----------------------------------------------------|
+|    •   |   •   | Sum, average, difference, product, ...             |
+|    •   |   •   | ROI extraction, Swap X/Y axes                      |
+|    •   |       | Semi-automatic multi-peak detection                |
+|        |   •   | Rotation (flip, rotate), resize, ...               |
+|        |   •   | Flat-field correction                              |
+|    •   |       | Normalize, derivative, integral                    |
+|    •   |   •   | Linear calibration                                 |
+|        |   •   | Thresholding, clipping                             |
+|    •   |   •   | Gaussian filter, Wiener filter                     |
+|    •   |   •   | Moving average, moving median                      |
+|    •   |   •   | FFT, inverse FFT                                   |
+|    •   |       | Interactive fit: Gauss, Lorenzt, Voigt, polynomial |
+|    •   |       | Interactive multigaussian fit                      |
+|    •   |   •   | Computing on custom ROI                            |
+|    •   |       | FWHM, FW @ 1/e²                                    |
+|        |   •   | Centroid (robust method w/r noise)                 |
+|        |   •   | Minimum enclosing circle center                    |
+
+More features will be available in the near future.
+
+![Multi-gaussian fit](https://raw.githubusercontent.com/CODRA-Software/CodraFT/master/doc/images/multi_gaussian_fit.png)
 
 ----
 
