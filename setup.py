@@ -33,7 +33,7 @@ LONG_DESCRIPTION = f"""\
 CodraFT: Signal and Image Processing Software
 =============================================
 
-.. image:: https://raw.githubusercontent.com/CODRA-Software/CodraFT/master/doc/images/dark_light_modes.png
+.. image:: https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/dark_light_modes.png
 
 CodraFT is a generic signal and image processing software based on Python scientific
 libraries (such as NumPy, SciPy or OpenCV) and Qt graphical user interfaces (thanks to
@@ -49,8 +49,8 @@ Copyright © 2009-2015 CEA, Pierre Raybaut
 Licensed under the terms of the `CECILL License`_.
 
 .. _documentation: {__docurl__}
-.. _changelog: https://github.com/CODRA-Software/CodraFT/blob/master/CHANGELOG.md
-.. _CECILL License: https://github.com/CODRA-Software/CodraFT/blob/master/Licence_CeCILL_V2.1-en.txt
+.. _changelog: https://github.com/CODRA-Ingenierie-Informatique/CodraFT/blob/master/CHANGELOG.md
+.. _CECILL License: https://github.com/CODRA-Ingenierie-Informatique/CodraFT/blob/master/Licence_CeCILL_V2.1-en.txt
 """
 
 KEYWORDS = ""

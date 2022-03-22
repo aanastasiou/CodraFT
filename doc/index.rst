@@ -44,7 +44,7 @@ Indices and tables
 .. _guidata: https://pypi.python.org/pypi/guidata
 .. _guiqwt: https://pypi.python.org/pypi/guiqwt
 .. _PyPI: https://pypi.python.org/pypi/codraft
-.. _GitHub: https://github.com/CODRA-Software/CodraFT
+.. _GitHub: https://github.com/CODRA-Ingenierie-Informatique/CodraFT
 .. _CEA: http://www.cea.fr
 .. _CODRA: https://codra.net/
 .. _CECILL License: http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html

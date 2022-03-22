@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/pypi/l/codraft.svg)](./LICENSE)
 [![pypi version](https://img.shields.io/pypi/v/codraft.svg)](https://pypi.org/project/codraft/)
-[![PyPI status](https://img.shields.io/pypi/status/codraft.svg)](https://github.com/CODRA-Software/CodraFT)
+[![PyPI status](https://img.shields.io/pypi/status/codraft.svg)](https://github.com/CODRA-Ingenierie-Informatique/CodraFT)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/codraft.svg)](https://pypi.python.org/pypi/codraft/)
 
 CodraFT is [CODRA](https://codra.net/)'s Filtering Tool.
@@ -79,7 +79,7 @@ More features will be available in the near future.
 CodraFT is available as a stand-alone application, which does not require any Python
 distribution to be installed. Just run the installer and you're good to go!
 
-The installer package is available in the [Releases](https://github.com/CODRA-Software/CodraFT/releases) section.
+The installer package is available in the [Releases](https://github.com/CODRA-Ingenierie-Informatique/CodraFT/releases) section.
 
 ### From the source package
 

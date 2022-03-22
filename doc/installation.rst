@@ -36,7 +36,7 @@ distribution to be installed. Just run the installer and you're good to go!
 
 The installer package is available in the `Releases`_ section.
 
-.. _Releases: https://github.com/CODRA-Software/CodraFT/releases
+.. _Releases: https://github.com/CODRA-Ingenierie-Informatique/CodraFT/releases
 
 
 From the source package::
