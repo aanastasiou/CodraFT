@@ -10,8 +10,9 @@ Testing CodraFT specific formats.
 """
 
 from codraft.core import io
-from codraft.utils.qthelpers import qt_app_context, view_images
+from codraft.utils.qthelpers import qt_app_context
 from codraft.utils.tests import try_open_test_data
+from codraft.utils.vistools import view_images
 
 SHOW = True  # Show test in GUI-based test launcher
 

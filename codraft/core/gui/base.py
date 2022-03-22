@@ -26,18 +26,10 @@ from guidata.qthelpers import create_action, add_actions
 from guidata.utils import update_dataset
 from guiqwt.builder import make
 from guiqwt.plot import CurveDialog
-from guiqwt.styles import style_generator, AnnotationParam
-from guiqwt.annotations import AnnotatedCircle, AnnotatedEllipse
+from guiqwt.styles import style_generator
 
 from codraft.config import _, APP_NAME
-from codraft.core.model import (
-    SignalParam,
-    CI_RECTANGLE,
-    CI_CIRCLE,
-    CI_ELLIPSE,
-    CI_MARKER,
-    CI_SEGMENT,
-)
+from codraft.core.model import SignalParam
 from codraft.utils.qthelpers import create_progress_bar, qt_try_except
 
 
@@ -69,6 +61,7 @@ class ObjectFT(QW.QSplitter, metaclass=ObjectFTMeta):
 
     def __init__(self, parent, plotwidget):
         super().__init__(QC.Qt.Vertical, parent)
+        self.setObjectName(self.PREFIX)
         self.plotwidget = plotwidget.plotwidget
         self.plot = plotwidget.get_plot()
 
@@ -374,97 +367,13 @@ class ObjectFT(QW.QSplitter, metaclass=ObjectFTMeta):
     def update_item(self, row):
         """Update plot item associated to data"""
 
-    @staticmethod
-    @abc.abstractmethod
-    def make_roi_item(obj, data):
-        """Add to plot ROI defined for computing functions"""
-
-    @staticmethod
-    def _make_marker_item(name, data, fmt):
-        """Make marker item"""
-        x0, y0 = data[:2]
-        if np.isnan(x0):
-            mstyle = "-"
-
-            def label(x, y):  # pylint: disable=unused-argument
-                return (name + ": " + fmt) % y
-
-        elif np.isnan(y0):
-            mstyle = "|"
-
-            def label(x, y):  # pylint: disable=unused-argument
-                return (name + ": " + fmt) % x
-
-        else:
-            mstyle = "+"
-            txt = name + ": (" + fmt + ", " + fmt + ")"
-
-            def label(x, y):
-                return txt % (x, y)
-
-        return make.marker(
-            position=(x0, y0),
-            markerstyle=mstyle,
-            label_cb=label,
-            linestyle="DashLine",
-            color="yellow",
-        )
-
-    @staticmethod
-    def _make_shape_item(name, data):
-        """Make shape item"""
-        shape = data[-1]
-        if shape == CI_RECTANGLE:
-            x0, y0, x1, y1, shape = data
-            return make.annotated_rectangle(x0, y0, x1, y1, title=name)
-        if shape == CI_CIRCLE:
-            x0, y0, x1, y1, shape = data
-            param = AnnotationParam(_("Annotation"), icon="annotation.png")
-            param.title = name
-            item = AnnotatedCircle(x0, y0, x1, y1, param)
-            item.set_style("plot", "shape/drag")
-            return item
-        if shape == CI_SEGMENT:
-            x0, y0, x1, y1, shape = data
-            return make.annotated_segment(x0, y0, x1, y1, title=name)
-        if shape == CI_ELLIPSE:
-            x0, y0, x1, y1, x2, y2, x3, y3 = data[:-1]
-            param = AnnotationParam(_("Annotation"), icon="annotation.png")
-            param.title = name
-            item = AnnotatedEllipse(annotationparam=param)
-            item.shape.switch_to_ellipse()
-            item.set_xdiameter(x0, y0, x1, y1)
-            item.set_ydiameter(x2, y2, x3, y3)
-            item.set_style("plot", "shape/drag")
-            return item
-        print(f"Warning: unsupported item {name}")
-        return None
-
-    def _make_computing_item(self, obj, name, data, fmt):
-        """Add item associated to computed result"""
-        if name == "ROI":
-            return self.make_roi_item(obj, data)
-        if data[-1] == CI_MARKER or len(data) == 2:
-            return self._make_marker_item(name, data, fmt)
-        if data[-1] in (CI_RECTANGLE, CI_CIRCLE, CI_SEGMENT, CI_ELLIPSE):
-            return self._make_shape_item(name, data)
-        return None
-
     def add_computing_items(self, row):
         """Add items associated to computed results"""
         obj = self.objects[row]
-        if not obj.metadata:
-            return
-        fmt = obj.metadata.setdefault("__format", "%s")
-        for key, data in obj.metadata.items():
-            if key.startswith("_") and isinstance(data, np.ndarray):
-                name = key[1:]
-                item = self._make_computing_item(obj, name, data, fmt)
-                if item is not None:
-                    item.set_movable(False)
-                    item.set_resizable(False)
-                    self.plot.add_item(item)
-                    self._computing_items.append(item)
+        if obj.metadata:
+            for item in obj.iterate_computing_items():
+                self.plot.add_item(item)
+                self._computing_items.append(item)
 
     def remove_all_computing_items(self):
         """Remove all computing items"""

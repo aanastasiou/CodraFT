@@ -16,6 +16,28 @@ from codraft.core.gui.main import CodraFTMainWindow
 from codraft.utils.qthelpers import qt_app_context
 
 
+def init_app(splash=True, console=True, objects=None, h5file=None, size=None):
+    """Initialize CodraFT application"""
+    if splash:
+        # Showing splash screen
+        pixmap = QG.QPixmap(get_image_file_path("codraft_titleicon.png"))
+        splashscreen = QW.QSplashScreen(pixmap, QC.Qt.WindowStaysOnTopHint)
+        splashscreen.show()
+    window = CodraFTMainWindow(console=console)
+    if size is not None:
+        width, height = size
+        window.resize(width, height)
+    if splash:
+        splashscreen.finish(window)
+    if h5file is not None:
+        window.open_hdf5_file(h5file, import_all=True)
+    if objects is not None:
+        for obj in objects:
+            window.add_object(obj)
+    window.show()
+    return window
+
+
 def run(console=True, objects=None, h5file=None, size=None):
     """Run the CodraFT application
 
@@ -23,24 +45,11 @@ def run(console=True, objects=None, h5file=None, size=None):
     may not be moved without modifying the package setup script."""
 
     with qt_app_context() as app:
-        # Showing splash screen
-        pixmap = QG.QPixmap(get_image_file_path("codraft_titleicon.png"))
-        splash = QW.QSplashScreen(pixmap, QC.Qt.WindowStaysOnTopHint)
-        splash.show()
-
-        window = CodraFTMainWindow(console=console)
-        splash.finish(window)
-        if h5file is not None:
-            window.open_hdf5_file(h5file, import_all=True)
-        if objects is not None:
-            for obj in objects:
-                window.add_object(obj)
-        window.show()
+        window = init_app(
+            splash=True, console=console, objects=objects, h5file=h5file, size=size
+        )
         window.check_dependencies()
-        if size is not None:
-            width, height = size
-            window.resize(width, height)
-        app.exec_()
+        app.exec()
 
 
 if __name__ == "__main__":

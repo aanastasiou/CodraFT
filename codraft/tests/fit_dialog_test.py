@@ -12,6 +12,7 @@ import numpy as np
 
 from codraft.core.computation.signal import peak_indexes
 from codraft.tests.data import get_test_fnames
+from codraft.utils.qthelpers import qt_app_context
 from codraft.widgets.fit_dialog import multigaussianfit
 
 SHOW = True  # Show test in GUI-based test launcher
@@ -19,9 +20,10 @@ SHOW = True  # Show test in GUI-based test launcher
 
 def test():
     """Test function"""
-    x, y = np.loadtxt(get_test_fnames("paracetamol.txt")[0], delimiter=",").T
-    peakindexes = peak_indexes(y)
-    print(multigaussianfit(x, y, peakindexes))
+    with qt_app_context():
+        x, y = np.loadtxt(get_test_fnames("paracetamol.txt")[0], delimiter=",").T
+        peakindexes = peak_indexes(y)
+        print(multigaussianfit(x, y, peakindexes))
 
 
 if __name__ == "__main__":

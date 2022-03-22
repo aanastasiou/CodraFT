@@ -25,7 +25,8 @@ from guiqwt.builder import make
 from codraft.config import _
 from codraft.core.computation.image import get_centroid_fourier
 from codraft.tests.data import get_laser_spot_data
-from codraft.utils.qthelpers import qt_app_context, view_image_items
+from codraft.utils.qthelpers import qt_app_context
+from codraft.utils.vistools import view_image_items
 
 SHOW = True  # Show test in GUI-based test launcher
 

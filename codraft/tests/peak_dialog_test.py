@@ -28,7 +28,7 @@ def test():
         dlg = PeakDetectionDialog()
         dlg.setup_data(x, y)
         dlg.show()
-        app.exec_()
+        app.exec()
         print("peaks:")
         pprint(dlg.get_peaks())
 

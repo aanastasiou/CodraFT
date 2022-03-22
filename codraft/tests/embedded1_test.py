@@ -60,7 +60,7 @@ def test_embedded_feature(klass):
     with qt_app_context() as app:
         window = klass()
         window.show()
-        app.exec_()
+        app.exec()
 
 
 if __name__ == "__main__":

@@ -95,8 +95,8 @@ def get_stats(self, x0, y0, x1, y1):
     # pylint: disable=C0415
     from codraft.core.computation.image import get_centroid_fourier
 
-    bari, barj = get_centroid_fourier(data)
-    barx, bary = self.get_plot_coordinates(barj + ix0, bari + iy0)
+    c_i, c_j = get_centroid_fourier(data)
+    c_x, c_y = self.get_plot_coordinates(c_j + ix0, c_i + iy0)
     xfmt = self.imageparam.xformat
     yfmt = self.imageparam.yformat
     return (
@@ -104,14 +104,16 @@ def get_stats(self, x0, y0, x1, y1):
         + "<br>"
         + "<br>".join(
             [
-                "bar|x = " + xfmt % barx,
-                "bar|y = " + yfmt % bary,
+                "C|x = " + xfmt % c_x,
+                "C|y = " + yfmt % c_y,
             ]
         )
     )
 
 
+# ==============================================================================
 #  Adding support for z-axis logarithmic scale
+# ==============================================================================
 class ZAxisLogTool(guiqwt.tools.ToggleTool):
     """Patched tools.ToggleTool"""
 
@@ -233,19 +235,6 @@ def draw_image(self, painter, canvasRect, src_rect, dst_rect, xMap, yMap):
     painter.drawImage(qrect, self._image, qrect)
 
 
-@monkeypatch_method(guiqwt.histogram.LevelsHistogram, "LevelsHistogram")
-def item_removed(self, item):
-    """Reimplement histogram.LevelsHistogram method"""
-    for plot, items in list(self._tracked_items.items()):
-        if item in items:
-            try:
-                self.del_item(item)
-            except ValueError:
-                pass  # Histogram has not yet been created
-            items.pop(item)
-            break
-
-
 # ==============================================================================
 #  Cross section : add a button to send curve to CodraFT's signal panel
 # ==============================================================================
@@ -306,42 +295,6 @@ def to_codraft(cs_plot):
     win.raise_()
 
 
-@monkeypatch_method(cs.XCrossSectionItem, "XCrossSectionItem")
-def get_cross_section(self, obj):
-    """Get x-cross section data from source image"""
-    cs_data = self._old_XCrossSectionItem_get_cross_section(obj)
-    rect = cs.get_rectangular_area(obj)
-    if rect is None:
-        _x0, y0 = cs.get_object_coordinates(obj)
-        self.curveparam.label = _("Cross section") + " @ y=" + str(y0)
-    else:
-        if self.perimage_mode:
-            x0, y0, x1, y1 = rect
-        else:
-            x0, y0, x1, y1 = obj.get_rect()
-        self.curveparam.label = f'{_("Average cross section")} @ y=[{y0} ; {y1}]'
-    return cs_data
-
-
-@monkeypatch_method(cs.YCrossSectionItem, "YCrossSectionItem")
-def get_cross_section(self, obj):  # pylint: disable=function-redefined
-    """Get y-cross section data from source image"""
-    cs_data = self._old_YCrossSectionItem_get_cross_section(obj)
-    rect = cs.get_rectangular_area(obj)
-    if rect is None:
-        # Object is a marker or an annotated point
-        x0, _y0 = cs.get_object_coordinates(obj)
-        self.curveparam.label = _("Cross section") + " @ x=" + str(x0)
-    else:
-        if self.perimage_mode:
-            x0, y0, x1, y1 = rect
-        else:
-            x0, y0, x1, y1 = obj.get_rect()
-        text = _("Average cross section")
-        self.curveparam.label = f"{text} @ x=[{x0} ; {x1}]"
-    return cs_data
-
-
 @monkeypatch_method(cs.XCrossSection, "XCrossSection")
 def add_actions_to_toolbar(self):
     """Add actions to toolbar"""
@@ -353,6 +306,3 @@ def add_actions_to_toolbar(self):
     )
     add_actions(self.toolbar, (to_codraft_ac, None))
     self._old_XCrossSection_add_actions_to_toolbar()
-
-
-# ==============================================================================

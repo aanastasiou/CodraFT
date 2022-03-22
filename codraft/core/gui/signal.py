@@ -37,7 +37,7 @@ from guiqwt.tools import LabelTool, VCursorTool, HCursorTool, XCursorTool
 from guiqwt.styles import update_style_attr
 
 from codraft.config import _, APP_NAME
-from codraft.core.model import SignalParam, create_signal, CI_SEGMENT
+from codraft.core.model import SignalParam, create_signal, ShapeTypes
 from codraft.core.gui.new import create_signal_gui
 from codraft.core.gui.base import ObjectFT
 from codraft.utils.qthelpers import qt_try_except, qt_try_opening_file
@@ -88,12 +88,14 @@ class SignalFT(ObjectFT):
         lincal_action = cra(self, _("Linear calibration"), self.calibrate)
         polyfit_action = cra(self, _("Polynomial fit"), self.compute_polyfit)
         mgfit_action = cra(self, _("Multi-Gaussian fit"), self.compute_multigaussianfit)
-        gfitcb = lambda: self.compute_fit(_("Gaussian fit"), fit_dialog.gaussianfit)
-        lfitcb = lambda: self.compute_fit(_("Lorentzian fit"), fit_dialog.lorentzianfit)
-        vfitcb = lambda: self.compute_fit(_("Voigt fit"), fit_dialog.voigtfit)
-        gaussfit_action = cra(self, _("Gaussian fit"), gfitcb)
-        lorentzfit_action = cra(self, _("Lorentzian fit"), lfitcb)
-        voigtfit_action = cra(self, _("Voigt fit"), vfitcb)
+
+        def cra_fit(title, fitdlgfunc):
+            """Create curve fitting action"""
+            return cra(self, title, lambda: self.compute_fit(title, fitdlgfunc))
+
+        gaussfit_action = cra_fit(_("Gaussian fit"), fit_dialog.gaussianfit)
+        lorentzfit_action = cra_fit(_("Lorentzian fit"), fit_dialog.lorentzianfit)
+        voigtfit_action = cra_fit(_("Voigt fit"), fit_dialog.voigtfit)
         actions1 = [normalize_action, deriv_action, integ_action, lincal_action]
         actions2 = [
             gaussfit_action,
@@ -158,13 +160,6 @@ class SignalFT(ObjectFT):
         item.curveparam.label = signal.title
         update_style_attr(next(make.style), item.curveparam)
 
-    @staticmethod
-    def make_roi_item(obj, data):
-        """Add to plot ROI defined for computing functions"""
-        i0, i1 = data
-        xmin, xmax = obj.x[i0], obj.x[i1]
-        return make.range(xmin, xmax)
-
     def open_separate_view(self, rows=None):
         """Open separate view for visualizing selected objects"""
         if rows is None:
@@ -172,7 +167,7 @@ class SignalFT(ObjectFT):
         tools = (LabelTool, VCursorTool, HCursorTool, XCursorTool)
         dlg = self.create_new_dialog(rows, tools=tools)
         dlg.plot_widget.itemlist.setVisible(True)
-        dlg.exec_()
+        dlg.exec()
 
     def get_plot_options(self):
         """Return standard signal plot options"""
@@ -263,16 +258,22 @@ class SignalFT(ObjectFT):
         """Extract Region Of Interest (ROI) from data"""
         param = self.get_roi_dialog()
         if param is not None:
+            # TODO: Instead of removing computing metadata, fix it following roi extract
             self.compute_11(
                 "ROI",
                 lambda x, y, p: (x.copy()[p.row1 : p.row2], y.copy()[p.row1 : p.row2]),
                 param,
                 suffix=lambda p: f"rows={p.row1:d}:{p.row2:d}",
+                func_obj=lambda obj: obj.remove_computing_metadata(),
             )
 
     def swap_axes(self):
         """Swap data axes"""
-        self.compute_11("SwapAxes", lambda x, y: (y, x))
+        self.compute_11(
+            "SwapAxes",
+            lambda x, y: (y, x),
+            func_obj=lambda obj: obj.remove_computing_metadata(),
+        )
 
     def compute_abs(self):
         """Compute absolute value"""
@@ -288,7 +289,7 @@ class SignalFT(ObjectFT):
         obj = self.objects[row]
         dlg = peak_dialog.PeakDetectionDialog(self)
         dlg.setup_data(obj.x, obj.y)
-        if dlg.exec_():
+        if dlg.exec():
             thres = dlg.get_threshold()
 
             class PeakDetectionParam(DataSet):
@@ -439,11 +440,11 @@ class SignalFT(ObjectFT):
         self.compute_11("iFFT", xy_ifft)
 
     @qt_try_except()
-    def compute_fit(self, name, fitdialog):
+    def compute_fit(self, name, fitdlgfunc):
         """Compute fitting curve"""
         rows = self.get_selected_rows()
         for row in rows:
-            self.__row_compute_fit(row, name, fitdialog)
+            self.__row_compute_fit(row, name, fitdlgfunc)
 
     @qt_try_except()
     def compute_polyfit(self):
@@ -457,17 +458,18 @@ class SignalFT(ObjectFT):
 
         param = PolynomialFitParam(txt)
         if param.edit(self):
+            fitdlgfunc = fit_dialog.polynomialfit
             self.compute_fit(
                 txt,
-                lambda x, y, degree=param.degree: fit_dialog.polynomialfit(
-                    x, y, degree
+                lambda x, y, degree=param.degree, parent=self.parent(): fitdlgfunc(
+                    x, y, degree, parent=parent
                 ),
             )
 
-    def __row_compute_fit(self, row, name, fitdialog):
+    def __row_compute_fit(self, row, name, fitdlgfunc):
         """Curve fitting computing sub-method"""
         obj = self.objects[row]
-        output = fitdialog(obj.x, obj.y)
+        output = fitdlgfunc(obj.x, obj.y, parent=self.parent())
         if output is not None:
             y, params = output
             results = {}
@@ -489,17 +491,20 @@ class SignalFT(ObjectFT):
     def compute_multigaussianfit(self):
         """Compute multi-Gaussian fitting curve"""
         rows = self.get_selected_rows()
+        fitdlgfunc = fit_dialog.multigaussianfit
         for row in rows:
             dlg = peak_dialog.PeakDetectionDialog(self)
             obj = self.objects[row]
             dlg.setup_data(obj.x, obj.y)
-            if dlg.exec_():
+            if dlg.exec():
                 # Computing x, y
                 peaks = dlg.get_peak_indexes()
                 self.__row_compute_fit(
                     row,
                     _("Multi-Gaussian fit"),
-                    lambda x, y, peaks=peaks: fit_dialog.multigaussianfit(x, y, peaks),
+                    lambda x, y, peaks=peaks, parent=self.parent(): fitdlgfunc(
+                        x, y, peaks, parent=parent
+                    ),
                 )
 
     # ------Signal Computing
@@ -558,7 +563,7 @@ class SignalFT(ObjectFT):
 
             (amp, sigma, mu, base), _ier = spo.leastsq(func, p_in)
             x0, y0, x1, y1 = FitModel.half_max_segment(amp, sigma, mu, base)
-            metadata["_" + title] = np.array([x0, y0, x1, y1, CI_SEGMENT])
+            metadata["_" + title] = np.array([x0, y0, x1, y1, ShapeTypes.SEGMENT])
             return FitModel.fwhm(amp, sigma)
 
         param = FWHMParam(title)
@@ -587,7 +592,9 @@ class SignalFT(ObjectFT):
             hw = 2 * sigma
             amplitude = fit.GaussianModel.amplitude(amp, sigma)
             yhm = amplitude / np.e**2 + base
-            metadata["_" + title] = np.array([mu - hw, yhm, mu + hw, yhm, CI_SEGMENT])
+            metadata["_" + title] = np.array(
+                [mu - hw, yhm, mu + hw, yhm, ShapeTypes.SEGMENT]
+            )
             return 2 * hw
 
         self.compute_10(title, fw1e2)
@@ -625,7 +632,7 @@ class SignalFT(ObjectFT):
         plot.add_item(range_sel)
         plot.add_item(disp)
         plot.set_active_item(range_sel)
-        if dlg.exec_():
+        if dlg.exec():
             imax = len(obj.x) - 1
             x0, x1 = range_sel.get_range()
             i0 = np.where(x >= x0)[0][0]

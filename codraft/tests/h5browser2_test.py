@@ -43,7 +43,7 @@ def memoryleak_test(fname, iterations=100):
             dlg.show()
             dlg.accept()
             dlg.close()
-            # dlg.exec_()
+            # dlg.exec()
             print(i + 1, ":", proc.memory_info().vms / 1024**2, "MB")
             dlg.cleanup()
         plt.plot(memlist)

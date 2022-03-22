@@ -10,17 +10,14 @@ CodraFT Qt utilities
 import functools
 import os
 import os.path as osp
-import sys
 import traceback
 from contextlib import contextmanager
 
 import guidata
-from guiqwt import tools as gqtools
-from guiqwt.builder import make
-from guiqwt.plot import ImageDialog
-from qtpy.QtCore import Qt
-from qtpy.QtGui import QCursor
-from qtpy.QtWidgets import QApplication, QMessageBox, QProgressDialog
+from guidata.configtools import get_module_data_path
+from qtpy import QtCore as QC
+from qtpy import QtGui as QG
+from qtpy import QtWidgets as QW
 
 from codraft.config import APP_NAME, _
 
@@ -37,8 +34,8 @@ def qt_app_context():
 
 def create_progress_bar(parent, label, max_):
     """Create modal progress bar"""
-    prog = QProgressDialog(label, _("Cancel"), 0, max_, parent, Qt.Popup)
-    prog.setWindowModality(Qt.WindowModal)
+    prog = QW.QProgressDialog(label, _("Cancel"), 0, max_, parent, QC.Qt.Popup)
+    prog.setWindowModality(QC.Qt.WindowModal)
     prog.show()
     return prog
 
@@ -51,7 +48,7 @@ def qt_handle_error_message(widget, message):
     if len(msglines) > 10:
         txt = os.linesep.join(msglines[:10] + ["..."])
     title = widget.window().objectName()
-    QMessageBox.critical(widget, title, _("Error:") + f"\n{txt}")
+    QW.QMessageBox.critical(widget, title, _("Error:") + f"\n{txt}")
 
 
 def qt_try_except(message=None):
@@ -66,7 +63,7 @@ def qt_try_except(message=None):
             self = args[0]
             if message is not None:
                 self.SIG_STATUS_MESSAGE.emit(message)
-                QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+                QW.QApplication.setOverrideCursor(QG.QCursor(QC.Qt.WaitCursor))
                 self.repaint()
             output = None
             try:
@@ -75,7 +72,7 @@ def qt_try_except(message=None):
                 qt_handle_error_message(self.parent(), msg)
             finally:
                 self.SIG_STATUS_MESSAGE.emit("")
-                QApplication.restoreOverrideCursor()
+                QW.QApplication.restoreOverrideCursor()
             return output
 
         return method_wrapper
@@ -90,7 +87,7 @@ def qt_try_opening_file(widget, filename):
         yield filename
     except Exception as msg:  # pylint: disable=broad-except
         traceback.print_exc()
-        QMessageBox.critical(
+        QW.QMessageBox.critical(
             widget,
             APP_NAME,
             (_("%s could not be opened:") % osp.basename(filename)) + "\n" + str(msg),
@@ -99,66 +96,13 @@ def qt_try_opening_file(widget, filename):
         pass
 
 
-def create_image_window(title=None, show_itemlist=True, show_contrast=True, tools=None):
-    """Create Image Dialog"""
-    if title is None:
-        script_name = osp.basename(sys.argv[0])
-        title = f'{_("Test dialog")} `{script_name}`'
-    win = ImageDialog(
-        edit=False,
-        toolbar=True,
-        wintitle=title,
-        options=dict(show_itemlist=show_itemlist, show_contrast=show_contrast),
-    )
-    if tools is None:
-        tools = (
-            gqtools.LabelTool,
-            gqtools.VCursorTool,
-            gqtools.HCursorTool,
-            gqtools.XCursorTool,
-            gqtools.AnnotatedRectangleTool,
-            gqtools.AnnotatedCircleTool,
-            gqtools.AnnotatedEllipseTool,
-            gqtools.AnnotatedSegmentTool,
-            gqtools.AnnotatedPointTool,
-        )
-    for toolklass in tools:
-        win.add_tool(toolklass, switch_to_default_tool=True)
-    return win
+SHOTPATH = osp.join(
+    get_module_data_path("codraft"), os.pardir, "doc", "images", "shots"
+)
 
 
-def view_image_items(
-    items, title=None, show_itemlist=True, show_contrast=True, tools=None
-):
-    """Create an image dialog and show items"""
-    win = create_image_window(
-        title=title,
-        show_itemlist=show_itemlist,
-        show_contrast=show_contrast,
-        tools=tools,
-    )
-    plot = win.get_plot()
-    for item in items:
-        plot.add_item(item)
-    win.exec_()
-
-
-def view_images(
-    data_or_datalist, title=None, show_itemlist=True, show_contrast=True, tools=None
-):
-    """Create an image dialog and show images"""
-    if isinstance(data_or_datalist, (tuple, list)):
-        datalist = data_or_datalist
-    else:
-        datalist = [data_or_datalist]
-    items = []
-    for data in datalist:
-        item = make.image(data, interpolation="nearest", eliminate_outliers=0.1)
-        items.append(item)
-    view_image_items(
-        items,
-        title=title,
-        show_itemlist=show_itemlist,
-        show_contrast=show_contrast,
-        tools=tools,
-    )
+def grab_save_window(widget, name):
+    """Grab window screenshot and save it"""
+    QW.QApplication.processEvents()
+    pixmap = QW.QApplication.primaryScreen().grabWindow(widget.winId())
+    pixmap.save(osp.join(SHOTPATH, f"{name}.png"))

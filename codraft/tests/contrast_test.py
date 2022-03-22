@@ -12,8 +12,9 @@ spots) thus preventing from cleaning up contrast histogram or showing valid Z-ax
 
 import numpy as np
 
-from codraft.utils.qthelpers import qt_app_context, view_images
+from codraft.utils.qthelpers import qt_app_context
 from codraft.utils.tests import get_test_fnames
+from codraft.utils.vistools import view_images
 
 SHOW = True  # Show test in GUI-based test launcher
 

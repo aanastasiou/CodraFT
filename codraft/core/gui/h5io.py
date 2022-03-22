@@ -105,7 +105,7 @@ class H5InputOutput:
 
         with qt_try_opening_file(self.mainwindow, filename):
             self.h5browser.setup(filename)
-            if not import_all and not self.h5browser.exec_():
+            if not import_all and not self.h5browser.exec():
                 self.h5browser.cleanup()
                 return
             if import_all:

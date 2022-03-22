@@ -42,6 +42,7 @@ from codraft.core.gui.image import ImageFT
 from codraft.core.gui.signal import SignalFT
 from codraft.core.model import ImageParam, SignalParam
 from codraft.utils import dephash
+from codraft.utils.qthelpers import grab_save_window
 
 
 DATAPATH = get_module_data_path("codraft", "data")
@@ -107,6 +108,7 @@ class CodraFTMainWindow(QW.QMainWindow):
         self.signal_image_docks = None
         self.h5import = H5InputOutput(self)
 
+        self.openh5_action = None
         self.saveh5_action = None
         self.quit_action = None
 
@@ -116,6 +118,7 @@ class CodraFTMainWindow(QW.QMainWindow):
         self.processing_menu = None
         self.computing_menu = None
         self.view_menu = None
+        self.help_menu = None
 
         self.__is_modified = None
         self.set_modified(False)
@@ -151,6 +154,29 @@ class CodraFTMainWindow(QW.QMainWindow):
             )
             QW.QMessageBox.critical(self, APP_NAME, txt)
 
+    def take_screenshot(self, name):
+        """Take main window screenshot"""
+        grab_save_window(self, f"{name}")
+
+    def take_menu_screenshots(self):
+        """Take menu screenshots"""
+        for index in range(2):
+            self.tabwidget.setCurrentIndex(index)
+            panelname = self.tabwidget.currentWidget().objectName()
+            for name in (
+                "file",
+                "edit",
+                "view",
+                "operation",
+                "processing",
+                "computing",
+                "help",
+            ):
+                menu = getattr(self, f"{name}_menu")
+                menu.popup(self.pos())
+                grab_save_window(menu, f"{panelname}_{name}")
+                menu.close()
+
     # ------GUI setup
     def setup(self, console=True):
         """Setup main window"""
@@ -168,7 +194,7 @@ class CodraFTMainWindow(QW.QMainWindow):
 
     def setup_commmon_actions(self):
         """Setup common actions"""
-        openh5_action = create_action(
+        self.openh5_action = create_action(
             self,
             _("Open HDF5 file..."),
             icon=get_icon("libre-gui-folder-open.svg"),
@@ -183,7 +209,7 @@ class CodraFTMainWindow(QW.QMainWindow):
             triggered=self.save_to_hdf5_file,
         )
         h5_toolbar = self.addToolBar(_("HDF5 I/O Toolbar"))
-        add_actions(h5_toolbar, [openh5_action, self.saveh5_action])
+        add_actions(h5_toolbar, [self.openh5_action, self.saveh5_action])
         # Quit action for "File menu" (added when populating menu on demand)
         if self.hide_on_close:
             quit_text = _("Hide window")
@@ -262,7 +288,7 @@ class CodraFTMainWindow(QW.QMainWindow):
         self.computing_menu = self.menuBar().addMenu(_("Computing"))
         self.view_menu = self.menuBar().addMenu(_("&View"))
         self.view_menu.aboutToShow.connect(self._update_view_menu)
-        help_menu = self.menuBar().addMenu("?")
+        self.help_menu = self.menuBar().addMenu("?")
         for menu in (
             self.edit_menu,
             self.operation_menu,
@@ -296,7 +322,7 @@ class CodraFTMainWindow(QW.QMainWindow):
             triggered=self.about,
         )
         add_actions(
-            help_menu,
+            self.help_menu,
             (
                 onlinedoc_action,
                 chmdoc_action,
@@ -387,7 +413,10 @@ class CodraFTMainWindow(QW.QMainWindow):
             len(self.signalft.objects) + len(self.imageft.objects)
         )
         self._update_generic_menu(self.file_menu)
-        add_actions(self.file_menu, [None, self.quit_action])
+        add_actions(
+            self.file_menu,
+            [None, self.openh5_action, self.saveh5_action, None, self.quit_action],
+        )
 
     def _update_view_menu(self):
         """Update view menu before showing up"""

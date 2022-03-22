@@ -14,6 +14,8 @@ Functions creating test data: curves, images, ...
 import numpy as np
 
 from codraft.core import io
+from codraft.core.computation import fit
+from codraft.core.model import create_image, create_signal
 from codraft.utils.tests import get_test_fnames
 
 
@@ -67,3 +69,46 @@ def get_laser_spot_data():
     return [noisy_gaussian] + [
         io.imread_scor(fname) for fname in get_test_fnames("*.scor-data")
     ]
+
+
+def create_test_signal1():
+    """Create test signal (Paracetamol molecule spectrum)"""
+    data = np.loadtxt(get_test_fnames("paracetamol.txt")[0], delimiter=",")
+    obj = create_signal("Paracetamol")
+    obj.xydata = data.T
+    return obj
+
+
+def create_test_signal2():
+    """Create test signal (Gaussian curve)"""
+    obj = create_signal("Gaussienne")
+    x = np.linspace(-10, 10)
+    y = fit.GaussianModel.func(x, 500.0, 2.0, 0.0, 0.0)
+    obj.set_xydata(x, y)
+    return obj
+
+
+def create_test_image1(shape=None):
+    """Create test image (sin(x)+cos(y))"""
+    if shape is None:
+        shape = (2000, 2000)
+    return create_image("sin(x)+cos(y)", create_test_2d_data(shape, dtype=np.uint16))
+
+
+def create_test_image2(shape=None, with_metadata=True):
+    """Create test image (2D noisy gaussian)"""
+    title = "2D Gaussian"
+    data = create_noisy_2d_gaussian(shape, dtype=np.uint16, x0=2.0, y0=3.0)
+    if with_metadata:
+        return create_image(
+            title,
+            data,
+            circles=(
+                ("Circle1", (100, 100, 400, 400)),
+                ("Circle2", (150, 150, 350, 350)),
+            ),
+            rectangles=(("Rect1", (300, 200, 700, 700)),),
+            segments=(("Segment", (100, 100, 400, 400)),),
+            markers=(("Marker1", (500, 500)),),
+        )
+    return create_image(title, data)

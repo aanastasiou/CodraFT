@@ -14,7 +14,6 @@ from guiqwt.widgets.fit import FitDialog, FitParam
 from codraft.config import _
 from codraft.core.computation import fit
 from codraft.core.computation.signal import xpeak
-from codraft.utils.qthelpers import qt_app_context
 
 
 def guifit(
@@ -32,30 +31,32 @@ def guifit(
     auto_fit=True,
     winsize=None,
     winpos=None,
+    parent=None,
 ):
     """GUI-based curve fitting tool"""
-    with qt_app_context():
-        win = FitDialog(
-            edit=True,
-            wintitle=wintitle,
-            toolbar=True,
-            param_cols=param_cols,
-            auto_fit=auto_fit,
-            options=dict(title=title, xlabel=xlabel, ylabel=ylabel),
-        )
-        win.set_data(x, y, fitfunc, fitparams, fitargs, fitkwargs)
-        win.autofit()  # TODO: make this optional
-        if winsize is not None:
-            win.resize(*winsize)
-        if winpos is not None:
-            win.move(*winpos)
-        if win.exec_():
-            return win.get_values()
-        return None
+    win = FitDialog(
+        edit=True,
+        wintitle=wintitle,
+        icon=None,
+        toolbar=True,
+        options=dict(title=title, xlabel=xlabel, ylabel=ylabel),
+        parent=parent,
+        param_cols=param_cols,
+        auto_fit=auto_fit,
+    )
+    win.set_data(x, y, fitfunc, fitparams, fitargs, fitkwargs)
+    win.autofit()  # TODO: make this optional
+    if winsize is not None:
+        win.resize(*winsize)
+    if winpos is not None:
+        win.move(*winpos)
+    if win.exec():
+        return win.get_values()
+    return None
 
 
 # --- Polynomial fitting curve -------------------------------------------------
-def polynomialfit(x, y, degree):
+def polynomialfit(x, y, degree, parent=None):
     """Compute polynomial fit
 
     Returns (yfit, params), where yfit is the fitted curve and params are
@@ -72,13 +73,13 @@ def polynomialfit(x, y, degree):
     def fitfunc(x, params):
         return np.polyval(params, x)
 
-    values = guifit(x, y, fitfunc, params)
+    values = guifit(x, y, fitfunc, params, parent=parent)
     if values:
         return fitfunc(x, values), params
 
 
 # --- Gaussian fitting curve ---------------------------------------------------
-def gaussianfit(x, y):
+def gaussianfit(x, y, parent=None):
     """Compute Gaussian fit
 
     Returns (yfit, params), where yfit is the fitted curve and params are
@@ -98,13 +99,13 @@ def gaussianfit(x, y):
     def fitfunc(x, params):
         return fit.GaussianModel.func(x, *params)
 
-    values = guifit(x, y, fitfunc, params)
+    values = guifit(x, y, fitfunc, params, parent=parent)
     if values:
         return fitfunc(x, values), params
 
 
 # --- Lorentzian fitting curve -------------------------------------------------
-def lorentzianfit(x, y):
+def lorentzianfit(x, y, parent=None):
     """Compute Lorentzian fit
 
     Returns (yfit, params), where yfit is the fitted curve and params are
@@ -124,13 +125,13 @@ def lorentzianfit(x, y):
     def fitfunc(x, params):
         return fit.LorentzianModel.func(x, *params)
 
-    values = guifit(x, y, fitfunc, params)
+    values = guifit(x, y, fitfunc, params, parent=parent)
     if values:
         return fitfunc(x, values), params
 
 
 # --- Voigt fitting curve ------------------------------------------------------
-def voigtfit(x, y):
+def voigtfit(x, y, parent=None):
     """Compute Voigt fit
 
     Returns (yfit, params), where yfit is the fitted curve and params are
@@ -150,7 +151,7 @@ def voigtfit(x, y):
     def fitfunc(x, params):
         return fit.VoigtModel.func(x, *params)
 
-    values = guifit(x, y, fitfunc, params)
+    values = guifit(x, y, fitfunc, params, parent=parent)
     if values:
         return fitfunc(x, values), params
 
@@ -168,7 +169,7 @@ def multigaussian(x, *values, **kwargs):
     return y
 
 
-def multigaussianfit(x, y, peak_indexes):
+def multigaussianfit(x, y, peak_indexes, parent=None):
     """Compute Multi-Gaussian fit
 
     Returns (yfit, params), where yfit is the fitted curve and params are
@@ -203,6 +204,8 @@ def multigaussianfit(x, y, peak_indexes):
     param_cols = 1
     if len(params) > 8:
         param_cols = 4
-    values = guifit(x, y, fitfunc, params, param_cols=param_cols, winsize=(900, 600))
+    values = guifit(
+        x, y, fitfunc, params, param_cols=param_cols, winsize=(900, 600), parent=parent
+    )
     if values:
         return fitfunc(x, values), params

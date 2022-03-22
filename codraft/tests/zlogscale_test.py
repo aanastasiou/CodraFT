@@ -26,7 +26,7 @@ def zlogscale_test():
         item = make.image(data)
         win.get_plot().add_item(item)
         item.set_zaxis_log_state(True)  # pylint: disable=no-member
-        win.exec_()
+        win.exec()
 
 
 if __name__ == "__main__":

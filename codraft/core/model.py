@@ -12,15 +12,33 @@ CodraFT Datasets
 import abc
 import re
 import numpy as np
+import enum
 
 import guidata.dataset.datatypes as gdt
 import guidata.dataset.dataitems as gdi
+from guiqwt.builder import make
+from guiqwt.styles import AnnotationParam
+from guiqwt.annotations import AnnotatedCircle, AnnotatedEllipse
 
 from codraft.config import _
 
 ROI_KEY = "_ROI"
 
-CI_RECTANGLE, CI_CIRCLE, CI_ELLIPSE, CI_SEGMENT, CI_MARKER = range(5)
+
+def make_roi_rectangle(x0, y0, x1, y1):
+    """Make and return the annnotated rectangle associated to ROI"""
+    roi_s = _("Region of interest")
+    return make.annotated_rectangle(x0, y0, x1, y1, roi_s)
+
+
+class ShapeTypes(enum.Enum):
+    """Shape types for image metadata"""
+
+    RECTANGLE = 0
+    CIRCLE = 1
+    ELLIPSE = 2
+    SEGMENT = 3
+    MARKER = 4
 
 
 # === Object (signal/image) interface ------------------------------------------
@@ -30,6 +48,8 @@ class ObjectItfMeta(abc.ABCMeta, gdt.DataSetMeta):
 
 class ObjectItf(metaclass=ObjectItfMeta):
     """Object (signal/image) interface"""
+
+    metadata = {}  # This is overriden in children classes with a gdi.DictItem instance
 
     @property
     @abc.abstractmethod
@@ -55,6 +75,100 @@ class ObjectItf(metaclass=ObjectItfMeta):
     @abc.abstractmethod
     def set_roi(self, roiparam):
         """Set signal ROI"""
+
+    @staticmethod
+    @abc.abstractmethod
+    def make_roi_item(obj, data):
+        """Make plot item representing a Region of Interest"""
+
+    @staticmethod
+    def make_marker_item(name, data, fmt):
+        """Make marker item"""
+        x0, y0 = data[:2]
+        if np.isnan(x0):
+            mstyle = "-"
+
+            def label(x, y):  # pylint: disable=unused-argument
+                return (name + ": " + fmt) % y
+
+        elif np.isnan(y0):
+            mstyle = "|"
+
+            def label(x, y):  # pylint: disable=unused-argument
+                return (name + ": " + fmt) % x
+
+        else:
+            mstyle = "+"
+            txt = name + ": (" + fmt + ", " + fmt + ")"
+
+            def label(x, y):
+                return txt % (x, y)
+
+        return make.marker(
+            position=(x0, y0),
+            markerstyle=mstyle,
+            label_cb=label,
+            linestyle="DashLine",
+            color="yellow",
+        )
+
+    @staticmethod
+    def make_shape_item(name, data):
+        """Make shape item"""
+        shape = data[-1]
+        if shape is ShapeTypes.RECTANGLE:
+            x0, y0, x1, y1, shape = data
+            return make.annotated_rectangle(x0, y0, x1, y1, title=name)
+        if shape is ShapeTypes.CIRCLE:
+            x0, y0, x1, y1, shape = data
+            param = AnnotationParam(_("Annotation"), icon="annotation.png")
+            param.title = name
+            item = AnnotatedCircle(x0, y0, x1, y1, param)
+            item.set_style("plot", "shape/drag")
+            return item
+        if shape is ShapeTypes.SEGMENT:
+            x0, y0, x1, y1, shape = data
+            return make.annotated_segment(x0, y0, x1, y1, title=name)
+        if shape is ShapeTypes.ELLIPSE:
+            x0, y0, x1, y1, x2, y2, x3, y3 = data[:-1]
+            param = AnnotationParam(_("Annotation"), icon="annotation.png")
+            param.title = name
+            item = AnnotatedEllipse(annotationparam=param)
+            item.shape.switch_to_ellipse()
+            item.set_xdiameter(x0, y0, x1, y1)
+            item.set_ydiameter(x2, y2, x3, y3)
+            item.set_style("plot", "shape/drag")
+            return item
+        print(f"Warning: unsupported item {name}")
+        return None
+
+    def make_computing_item(self, obj, name, data, fmt):
+        """Make plot item associated to a computed result stored in metadata"""
+        if name == "ROI":
+            return self.make_roi_item(obj, data)
+        if data[-1] is ShapeTypes.MARKER or len(data) == 2:
+            return self.make_marker_item(name, data, fmt)
+        if isinstance(data[-1], ShapeTypes):
+            return self.make_shape_item(name, data)
+        return None
+
+    def iterate_computing_items(self):
+        """Iterate over computing items encoded in metadata (if any)"""
+        fmt = self.metadata.setdefault("__format", "%s")
+        for key, data in self.metadata.items():
+            if key.startswith("_") and isinstance(data, np.ndarray):
+                name = key[1:]
+                item = self.make_computing_item(self, name, data, fmt)
+                if item is not None:
+                    item.set_movable(False)
+                    item.set_resizable(False)
+                    yield item
+
+    def remove_computing_metadata(self):
+        """Remove computing metadata"""
+        for key in list(self.metadata.keys()):
+            if key.startswith("_"):
+                self.metadata.pop(key)
 
 
 # === Core classes -------------------------------------------------------------
@@ -160,6 +274,13 @@ class SignalParam(gdt.DataSet, ObjectItf):
         self.metadata[ROI_KEY] = np.array([roiparam.row1, roiparam.row2])
 
     roi = property(get_roi, set_roi)
+
+    @staticmethod
+    def make_roi_item(obj, data):
+        """Add to plot ROI defined for computing functions"""
+        i0, i1 = data
+        xmin, xmax = obj.x[i0], obj.x[i1]
+        return make.range(xmin, xmax)
 
 
 class ImageParam(gdt.DataSet, ObjectItf):
@@ -274,6 +395,12 @@ class ImageParam(gdt.DataSet, ObjectItf):
 
     roi = property(get_roi, set_roi)
 
+    @staticmethod
+    def make_roi_item(obj, data):
+        """Add to plot ROI defined for computing functions"""
+        x0, y0, x1, y1 = data
+        return make_roi_rectangle(x0, y0, x1, y1)
+
 
 # === Factory functions --------------------------------------------------------
 def create_signal(
@@ -317,7 +444,7 @@ def create_image(
 ):
     """Create a new Image object"""
     assert isinstance(title, str)
-    assert isinstance(data, np.ndarray)
+    assert data is None or isinstance(data, np.ndarray)
     image = ImageParam()
     image.title = title
     image.data = data
@@ -325,11 +452,11 @@ def create_image(
     image.xlabel, image.ylabel, image.zlabel = xlabel, ylabel, zlabel
     image.metadata = {} if metadata is None else metadata
     for shapes, index in (
-        (rectangles, CI_RECTANGLE),
-        (circles, CI_CIRCLE),
-        (ellipses, CI_ELLIPSE),
-        (segments, CI_SEGMENT),
-        (markers, CI_MARKER),
+        (rectangles, ShapeTypes.RECTANGLE),
+        (circles, ShapeTypes.CIRCLE),
+        (ellipses, ShapeTypes.ELLIPSE),
+        (segments, ShapeTypes.SEGMENT),
+        (markers, ShapeTypes.MARKER),
     ):
         if shapes is not None:
             for stitle, coords in shapes:

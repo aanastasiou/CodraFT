@@ -1,4 +1,4 @@
-![CodraFT - CODRA's Filtering Tool](https://raw.githubusercontent.com/CODRA-Software/CodraFT/master/doc/images/codraft_banner.png)
+![CodraFT - CODRA's Filtering Tool](./doc/images/codraft_banner.png)
 
 [![license](https://img.shields.io/pypi/l/codraft.svg)](./LICENSE)
 [![pypi version](https://img.shields.io/pypi/v/codraft.svg)](https://pypi.org/project/codraft/)
@@ -7,7 +7,7 @@
 
 CodraFT is [CODRA](https://codra.net/)'s Filtering Tool.
 
-![CodraFT - CODRA's Filtering Tool](https://raw.githubusercontent.com/CODRA-Software/CodraFT/master/doc/images/dark_light_modes.png)
+![CodraFT - CODRA's Filtering Tool](./doc/images/dark_light_modes.png)
 
 ----
 
@@ -42,7 +42,7 @@ Copyrights and licensing:
 |        |    •   | 50+ available colormaps        |
 |        |    •   | X/Y raw/averaged profiles      |
 
-![Peak detection](https://raw.githubusercontent.com/CODRA-Software/CodraFT/master/doc/images/peak_detection.png)
+![Peak detection](./doc/images/peak_detection.png)
 
 ### Data processing
 
@@ -68,7 +68,7 @@ Copyrights and licensing:
 
 More features will be available in the near future.
 
-![Multi-gaussian fit](https://raw.githubusercontent.com/CODRA-Software/CodraFT/master/doc/images/multi_gaussian_fit.png)
+![Multi-gaussian fit](./doc/images/multi_gaussian_fit.png)
 
 ----
 
@@ -95,8 +95,8 @@ python setup.py install
 
 * Python 3.7+ (reference is Python 3.8)
 * [PyQt5](https://pypi.python.org/pypi/PyQt5) 5.15+ (Python Qt bindings)
-* [guidata](https://pypi.python.org/pypi/guidata) 2.0+ (set of tools for automatic GUI generation)
-* [guiqwt](https://pypi.python.org/pypi/guiqwt) 4.0+ (set of tools for curve and image plotting based on guidata)
+* [guidata](https://pypi.python.org/pypi/guidata) 2.1+ (set of tools for automatic GUI generation)
+* [guiqwt](https://pypi.python.org/pypi/guiqwt) 4.1+ (set of tools for curve and image plotting based on guidata)
 
 ### Other optional modules
 

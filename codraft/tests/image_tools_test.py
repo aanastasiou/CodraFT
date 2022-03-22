@@ -15,7 +15,8 @@ import numpy as np
 from guiqwt.builder import make
 
 from codraft.tests.data import create_noisy_2d_gaussian
-from codraft.utils.qthelpers import qt_app_context, view_image_items
+from codraft.utils.qthelpers import qt_app_context
+from codraft.utils.vistools import view_image_items
 
 SHOW = True  # Show test in GUI-based test launcher
 

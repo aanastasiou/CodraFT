@@ -81,14 +81,14 @@ setup(
     install_requires=[
         "NumPy>=1.21",
         "SciPy>=1.7",
-        "guidata>=2.0.4",
-        "guiqwt>=4.0.2",
+        "guidata>=2.1",
+        "guiqwt>=4.1",
         "QtPy>=1.9",
     ],
     entry_points={"gui_scripts": [f"{MODNAME} = {MODNAME}.app:run"]},
     author="Pierre Raybaut",
     author_email="p.raybaut@codra.fr",
-    url=f"https://github.com/CODRA-Software/{LIBNAME}",
+    url=f"https://github.com/CODRA-Ingenierie-Informatique/{LIBNAME}",
     license="CeCILL V2",
     classifiers=CLASSIFIERS
     + [

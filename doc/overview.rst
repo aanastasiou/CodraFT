@@ -1,12 +1,18 @@
 Overview
 ========
 
-Signal processing
------------------
+.. figure:: images/panorama.png
 
-*(To be continued)*
+    Signal and image visualization in CodraFT
 
-Image processing
-----------------
+.. figure:: images/dark_light_modes.png
 
-*(To be continued)*
+    CodraFT supports dark and light mode depending on your OS settings
+
+.. figure:: images/multi_gaussian_fit.png
+
+    Example of a multi-gaussian curve fit
+
+.. figure:: images/peak_detection.png
+
+    Semi-automatic peak detection

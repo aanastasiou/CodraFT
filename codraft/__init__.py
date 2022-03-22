@@ -15,7 +15,7 @@ libraries (such as NumPy, SciPy or OpenCV) and Qt graphical user interfaces (tha
 .. _guiqwt: https://pypi.python.org/pypi/guiqwt
 """
 
-__version__ = "1.7.1"
+__version__ = "1.7.2"
 __docurl__ = "https://codraft.readthedocs.io/en/latest/"
 
 import codraft.patch  # analysis:ignore

@@ -41,7 +41,7 @@ from guiqwt.widgets.resizedialog import ResizeDialog
 from guiqwt.qthelpers import exec_images_open_dialog, exec_image_save_dialog
 
 from codraft.config import _, APP_NAME
-from codraft.core.model import ImageParam, create_image
+from codraft.core.model import ImageParam, create_image, make_roi_rectangle
 from codraft.core.gui.new import create_image_gui
 from codraft.core.gui.base import ObjectFT
 from codraft.utils.qthelpers import qt_try_except
@@ -51,12 +51,6 @@ from codraft.core.computation.image import (
     get_enclosing_circle,
 )
 from codraft.core.io import iohandler  # pylint: disable=W0611
-
-
-def make_roi_rectangle(x0, y0, x1, y1):
-    """Make and return the annnotated rectangle associated to ROI"""
-    roi_s = _("Region of interest")
-    return make.annotated_rectangle(x0, y0, x1, y1, roi_s)
 
 
 class ImageFT(ObjectFT):
@@ -188,12 +182,6 @@ class ImageFT(ObjectFT):
             setattr(item.imageparam, axis + "format", fmt)
         item.plot().update_colormap_axis(item)
 
-    @staticmethod
-    def make_roi_item(obj, data):
-        """Add to plot ROI defined for computing functions"""
-        x0, y0, x1, y1 = data
-        return make_roi_rectangle(x0, y0, x1, y1)
-
     def open_separate_view(self, rows=None):
         """Open separate view for visualizing selected objects"""
         if rows is None:
@@ -211,7 +199,7 @@ class ImageFT(ObjectFT):
         )
         dlg = self.create_new_dialog(rows, tools=tools)
         dlg.plot_widget.itemlist.setVisible(True)
-        dlg.exec_()
+        dlg.exec()
 
     def cleanup_dataview(self):
         """Clean up data view"""
@@ -336,6 +324,7 @@ class ImageFT(ObjectFT):
 
         param = RotateParam(_("Rotation"))
 
+        # TODO: Instead of removing computing metadata, fix it following rotation
         self.compute_11(
             "Rotate",
             lambda x, p: spi.rotate(
@@ -349,23 +338,38 @@ class ImageFT(ObjectFT):
             ),
             param,
             suffix=lambda p: f"α={p.angle:.3f}°, mode='{p.mode}'",
+            func_obj=lambda obj: obj.remove_computing_metadata(),
         )
 
     def rotate_90(self):
         """Rotate data 90°"""
-        self.compute_11("Rotate90", np.rot90)
+        # TODO: Instead of removing computing metadata, fix it following 90° rotation
+        self.compute_11(
+            "Rotate90", np.rot90, func_obj=lambda obj: obj.remove_computing_metadata()
+        )
 
     def rotate_270(self):
         """Rotate data 270°"""
-        self.compute_11("Rotate270", lambda x: np.rot90(x, 3))
+        # TODO: Instead of removing computing metadata, fix it following 270° rotation
+        self.compute_11(
+            "Rotate270",
+            lambda x: np.rot90(x, 3),
+            func_obj=lambda obj: obj.remove_computing_metadata(),
+        )
 
     def flip_horizontally(self):
         """Flip data horizontally"""
-        self.compute_11("HFlip", np.fliplr)
+        # TODO: Instead of removing computing metadata, fix it following horizontal flip
+        self.compute_11(
+            "HFlip", np.fliplr, func_obj=lambda obj: obj.remove_computing_metadata()
+        )
 
     def flip_vertically(self):
         """Flip data vertically"""
-        self.compute_11("VFlip", np.flipud)
+        # TODO: Instead of removing computing metadata, fix it following vertical flip
+        self.compute_11(
+            "VFlip", np.flipud, func_obj=lambda obj: obj.remove_computing_metadata()
+        )
 
     def resize_image(self):
         """Resize image"""
@@ -388,7 +392,7 @@ class ImageFT(ObjectFT):
             old_size=original_size,
             text=_("Destination size:"),
         )
-        if not dlg.exec_():
+        if not dlg.exec():
             return
         boundaries = ("constant", "nearest", "reflect", "wrap")
         prop = ValueProp(False)
@@ -427,6 +431,8 @@ class ImageFT(ObjectFT):
             dx, dy = obj.pixel_spacing
             if dx is not None and dy is not None:
                 obj.pixel_spacing = dx / param.zoom, dy / param.zoom
+            # TODO: Instead of removing computing metadata, fix it following zoom
+            obj.remove_computing_metadata()
 
         self.compute_11(
             "Zoom",
@@ -451,16 +457,22 @@ class ImageFT(ObjectFT):
             def suffix_func(p):
                 return f"rows={p.row1:d}:{p.row2:d},cols={p.col1:d}:{p.col2:d}"
 
+            # TODO: Instead of removing computing metadata, fix it following ROI extract
             self.compute_11(
                 "ROI",
                 lambda x, p: x.copy()[p.row1 : p.row2, p.col1 : p.col2],
                 param,
                 suffix=suffix_func,
+                func_obj=lambda obj: obj.remove_computing_metadata(),
             )
 
     def swap_axes(self):
         """Swap data axes"""
-        self.compute_11("SwapAxes", lambda z: z.T)
+        self.compute_11(
+            "SwapAxes",
+            lambda z: z.T,
+            func_obj=lambda obj: obj.remove_computing_metadata(),
+        )
 
     def compute_abs(self):
         """Compute absolute value"""
@@ -643,7 +655,7 @@ class ImageFT(ObjectFT):
         plot = dlg.get_plot()
         plot.add_item(crect)
         plot.set_active_item(crect)
-        if dlg.exec_():
+        if dlg.exec():
             parameters = [int(val) for val in crect.get_rect()]
             return obj.get_roi_param(*parameters)
         return None

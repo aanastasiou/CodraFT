@@ -1,5 +1,22 @@
 # CodraFT Releases #
 
+## Version 1.7.2 ##
+
+Bug fixes:
+
+* Fixed random hard crash when opening curve fitting dialog
+* Fixed curve fitting dialog parenting
+* ROI metadata is now removed (because potentially invalid) after performing a
+  computation that changes X-axis or Y-axis data (e.g. ROI extraction, image flip,
+  image rotation, etc.)
+* Fixed image creation features (broken since major refactoring)
+
+Other changes:
+
+* Removed deprecated Qt `exec_` calls (replaced by `exec`)
+* Added more infos on uninstaller registry keys
+* Added documentation on key features
+
 ## Version 1.7.1 ##
 
 Added first page of documentation (there is a beginning to everything...).
