@@ -95,6 +95,9 @@ def create_test_image1(shape=None):
     return create_image("sin(x)+cos(y)", create_test_2d_data(shape, dtype=np.uint16))
 
 
+# TODO: Define shape objects: Circle, Rectangle, CustomXXX
+# Serialization: --> ("ClassName", param1, param2, ...)
+# create_image parameters: (circles, rectangles, ...) ==> (objects=(obj1, obj2, ...))
 def create_test_image2(shape=None, with_metadata=True):
     """Create test image (2D noisy gaussian)"""
     title = "2D Gaussian"

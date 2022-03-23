@@ -1,4 +1,5 @@
-.. image:: images/codraft_banner.png
+CodraFT user guide
+==================
 
 CodraFT is a **generic signal and image processing software**.
 It is based on Python scientific libraries (such as NumPy,
