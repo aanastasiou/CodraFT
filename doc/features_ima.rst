@@ -120,6 +120,11 @@ Resize
 ROI extraction
     |createfrom| a user-defined Region of Interest.
 
+    .. figure:: /images/shots/i_roi_extraction.png
+
+        ROI extraction dialog: the ROI is defined by moving the position
+        and adjusting the size of a rectangle shape.
+
 Swap X/Y axes
     |create| the result of swapping X/Y data.
 
@@ -173,6 +178,10 @@ Inverse FFT
 Define ROI
     Open a dialog box to setup a Region Of Interest (ROI).
     ROI is stored as metadata, and thus attached to image.
+
+    .. figure:: /images/shots/i_roi_definition.png
+
+        An image with an ROI.
 
 Centroid
     Compute image centroid using a Fourier transform method

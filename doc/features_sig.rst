@@ -113,8 +113,19 @@ Log10(y)
 Peak detection
     |createfrom| semi-automatic peak detection |ofeachobj|.
 
+    .. figure:: /images/shots/s_peak_detection.png
+
+        Peak detection dialog: threshold is adjustable by moving the
+        horizontal marker, peaks are detected automatically (see vertical
+        markers with labels indicating peak position)
+
 ROI extraction
-    |createfrom| a user-defined Region of Interest.
+    |createfrom| a user-defined Region of Interest (ROI).
+
+    .. figure:: /images/shots/s_roi_extraction.png
+
+        ROI extraction dialog: the ROI is defined by moving the position
+        and adjusting the width of an horizontal range.
 
 Swap X/Y axes
     |create| the result of swapping X/Y data.
@@ -217,10 +228,23 @@ Define ROI
     Open a dialog box to setup a Region Of Interest (ROI).
     ROI is stored as metadata, and thus attached to signal.
 
+    .. figure:: /images/shots/s_roi_definition.png
+
+        ROI definition dialog: the ROI is defined by moving the position
+        and adjusting the width of an horizontal range.
+
+    .. figure:: /images/shots/s_roi_signal.png
+
+        A signal with an ROI.
+
 Full width at half-maximum
     Fit data to a Gaussian, Lorentzian or Voigt model using
     least-square method.
     Then, compute the full width at half-maximum value.
+
+    .. figure:: /images/shots/s_fwhm.png
+
+        The computed result is displayed as an annotated segment.
 
 Full width at 1/e²
     Fit data to a Lorentzian model using least-square method.
