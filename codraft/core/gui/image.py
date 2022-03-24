@@ -640,6 +640,8 @@ class ImageFT(ObjectFT):
                 y += y0
             return x, y
 
+        # TODO: Find a way to add the circle to the computing results
+        #  as in "enclosingcircle_test.py"
         self.compute_10(_("MinEnclosingCircle"), enclosing_circle)
 
     # ------Computing

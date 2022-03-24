@@ -4,6 +4,8 @@
 
 Bug fixes:
 
+* Fixed unit test "app1_test.py" (create a single QApp)
+* Fixed progress bar cancel issues (when passing HDF5 files to `app.run` function)
 * Fixed random hard crash when opening curve fitting dialog
 * Fixed curve fitting dialog parenting
 * ROI metadata is now removed (because potentially invalid) after performing a

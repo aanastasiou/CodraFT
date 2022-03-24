@@ -90,25 +90,39 @@ Delete all
 .. image:: /images/shots/s_operation.png
 
 Sum
-    |create| the sum |ofallobj|.
+    |create| the sum |ofallobj|:
+
+    :math:`y_{M} = \sum_{k=0}^{M-1}{y_{k}}`
 
 Average
-    |create| the average |ofallobj|.
+    |create| the average |ofallobj|:
+
+    :math:`y_{M} = \dfrac{1}{M}\sum_{k=0}^{M-1}{y_{k}}`
 
 Difference
-    |create| the difference |ofalltwo|.
+    |create| the difference |ofalltwo|:
+
+    :math:`y_{2} = y_{1} - y_{0}`
 
 Product
-    |create| the product |ofallobj|.
+    |create| the product |ofallobj|:
+
+    :math:`y_{M} = \prod_{k=0}^{M-1}{y_{k}}`
 
 Division
-    |create| the division |ofalltwo|.
+    |create| the division |ofalltwo|:
+
+    :math:`y_{2} = \dfrac{y_{1}}{y_{0}}`
 
 Absolute value
-    |create| the absolute value |ofeachobj|.
+    |create| the absolute value |ofeachobj|:
+
+    :math:`y_{k} = |y_{k-1}|`
 
 Log10(y)
-    |create| the base 10 logarithm |ofeachobj|.
+    |create| the base 10 logarithm |ofeachobj|:
+
+    :math:`z_{k} = \log_{10}(z_{k-1})`
 
 Peak detection
     |createfrom| semi-automatic peak detection |ofeachobj|.

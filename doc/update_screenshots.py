@@ -7,7 +7,7 @@
 Module for taking CodraFT screenshots
 """
 
-from codraft.app import init_app
+from codraft.app import create
 from codraft.tests.data import create_test_image1, create_test_signal1
 from codraft.utils.qthelpers import qt_app_context
 
@@ -18,7 +18,7 @@ def take_menu_screenshots():
     ima1 = create_test_image1()
     objects = (sig1, ima1)
     with qt_app_context():
-        window = init_app(splash=False, objects=objects, size=(1000, 500))
+        window = create(splash=False, objects=objects, size=(1000, 500))
         window.take_menu_screenshots()
         window.take_screenshot("i_simple_example")
         window.tabwidget.setCurrentWidget(window.signalft)

@@ -84,31 +84,57 @@ Delete all
 .. image:: /images/shots/i_operation.png
 
 Sum
-    |create| the sum |ofallobj|.
+    |create| the sum |ofallobj|:
+
+    :math:`z_{M} = \sum_{k=0}^{M-1}{z_{k}}`
 
 Average
-    |create| the average |ofallobj|.
+    |create| the average |ofallobj|:
+
+    :math:`z_{M} = \dfrac{1}{M}\sum_{k=0}^{M-1}{z_{k}}`
 
 Difference
-    |create| the difference |ofalltwo|.
+    |create| the difference |ofalltwo|:
+
+    :math:`z_{2} = z_{1} - z_{0}`
 
 Product
-    |create| the product |ofallobj|.
+    |create| the product |ofallobj|:
+
+    :math:`z_{M} = \prod_{k=0}^{M-1}{z_{k}}`
 
 Division
-    |create| the division |ofalltwo|.
+    |create| the division |ofalltwo|:
+
+    :math:`z_{2} = \dfrac{z_{1}}{z_{0}}`
 
 Absolute value
-    |create| the absolute value |ofeachobj|.
+    |create| the absolute value |ofeachobj|:
+
+    :math:`z_{k} = |z_{k-1}|`
 
 Log10(z)
-    |create| the base 10 logarithm |ofeachobj|.
+    |create| the base 10 logarithm |ofeachobj|:
+
+    :math:`z_{k} = \log_{10}(z_{k-1})`
 
 Log10(z+n)
-    |create| the Log10(z+n) |ofeachobj| (avoid Log10(0) on image background).
+    |create| the Log10(z+n) |ofeachobj| (avoid Log10(0) on image background):
+
+    :math:`z_{k} = \log_{10}(z_{k-1}+n)`
 
 Flat-field correction
-    |create| flat-field correction |ofalltwo|.
+    |create| flat-field correction |ofalltwo|:
+
+    :math:`z_{1} = \dfrac{z_{0}}{z_{f}}.`
+    :math:`\dfrac{1}{N_{row}.N_{col}}.\sum_{i=0}^{N_{row}}\sum_{j=0}^{N_{col}}{z_{f}[i,j]}`
+    where :math:`z_{0}` is the raw image
+    and :math:`z_{f}` is the flat field image
+
+    .. note::
+
+        Raw image and flat field image are supposedly already
+        corrected by performing a dark frame subtraction.
 
 Rotation
     |create| the result of rotating (90°, 270° or arbitrary angle) or
