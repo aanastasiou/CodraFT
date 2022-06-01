@@ -1,4 +1,4 @@
-![CodraFT - CODRA's Filtering Tool](https://github.com/CODRA-Ingenierie-Informatique/CodraFT/blob/master/doc/images/codraft_banner.png)
+![CodraFT - CODRA's Filtering Tool](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/codraft_banner.png)
 
 [![license](https://img.shields.io/pypi/l/codraft.svg)](./LICENSE)
 [![pypi version](https://img.shields.io/pypi/v/codraft.svg)](https://pypi.org/project/codraft/)
@@ -7,7 +7,7 @@
 
 CodraFT is [CODRA](https://codra.net/)'s Filtering Tool.
 
-![CodraFT - CODRA's Filtering Tool](https://github.com/CODRA-Ingenierie-Informatique/CodraFT/blob/master/doc/images/dark_light_modes.png)
+![CodraFT - CODRA's Filtering Tool](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/dark_light_modes.png)
 
 ----
 
@@ -20,7 +20,7 @@ libraries (such as NumPy, SciPy or OpenCV) and Qt graphical user interfaces (tha
 CodraFT is available as a **stand-alone** application (see for example our all-in-one Windows installer) or as an **addon to your Python-Qt application** thanks to advanced automation and embedding features.
 
 See [documentation](https://codraft.readthedocs.io/en/latest/) for more details on
-the library and [changelog](https://github.com/CODRA-Ingenierie-Informatique/CodraFT/blob/master/CHANGELOG.md) for recent history of changes.
+the library and [changelog](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/CHANGELOG.md) for recent history of changes.
 
 ### About Version 2
 
@@ -57,9 +57,9 @@ Copyrights and licensing:
 |        |    •   | X/Y raw/averaged profiles      |
 |        |    •   | User-defined annotations       |
 
-![1D-Peak detection](https://github.com/CODRA-Ingenierie-Informatique/CodraFT/blob/master/doc/images/peak_detection.png)
+![1D-Peak detection](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/peak_detection.png)
 
-![2D-Peak detection](https://github.com/CODRA-Ingenierie-Informatique/CodraFT/blob/master/doc/images/2dpeak_detection.png)
+![2D-Peak detection](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/2dpeak_detection.png)
 
 ### Data processing
 
@@ -86,9 +86,9 @@ Copyrights and licensing:
 |        |   •   | Automatic 2D-peak detection                        |
 |        |   •   | Automatic contour extraction (circle/ellipse fit)  |
 
-![Contour detection](https://github.com/CODRA-Ingenierie-Informatique/CodraFT/blob/master/doc/images/contour_detection.png)
+![Contour detection](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/contour_detection.png)
 
-![Multi-gaussian fit](https://github.com/CODRA-Ingenierie-Informatique/CodraFT/blob/master/doc/images/multi_gaussian_fit.png)
+![Multi-gaussian fit](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/multi_gaussian_fit.png)
 
 ----
 
