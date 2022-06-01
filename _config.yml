@@ -3,4 +3,4 @@ show_downloads: true
 theme: jekyll-theme-minimal
 github:
   zip_url: https://github.com/CODRA-Ingenierie-Informatique/CodraFT/releases
-  tar_url: https://github.com/CODRA-Ingenierie-Informatique/CodraFT/releases
+  tar_url: https://pypi.org/project/CodraFT/
