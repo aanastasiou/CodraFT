@@ -26,3 +26,54 @@ Copyrights and licensing:
 
 * Copyright © 2018 [CEA](http://www.cea.fr)-[CODRA](https://codra.net/), Pierre Raybaut
 * Licensed under the terms of the CECILL License
+
+----
+
+## Key features
+
+### Data visualization
+
+| Signal |  Image | Feature                        |
+|:------:|:------:|--------------------------------|
+|    •   |    •   | Screenshots (save, copy)       |
+|    •   | Z-axis | Lin/log scales                 |
+|    •   |    •   | Data table editing             |
+|    •   |    •   | Statistics on user-defined ROI |
+|    •   |    •   | Markers                        |
+|        |    •   | Aspect ratio (1:1, custom)     |
+|        |    •   | 50+ available colormaps        |
+|        |    •   | X/Y raw/averaged profiles      |
+|        |    •   | User-defined annotations       |
+
+![1D-Peak detection](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/peak_detection.png)
+
+![2D-Peak detection](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/2dpeak_detection.png)
+
+### Data processing
+
+| Signal | Image | Feature                                            |
+|:------:|:-----:|----------------------------------------------------|
+|    •   |   •   | Multiple ROI support                               |
+|    •   |   •   | Sum, average, difference, product, ...             |
+|    •   |   •   | ROI extraction, Swap X/Y axes                      |
+|    •   |       | Semi-automatic multi-peak detection                |
+|        |   •   | Rotation (flip, rotate), resize, ...               |
+|        |   •   | Flat-field correction                              |
+|    •   |       | Normalize, derivative, integral                    |
+|    •   |   •   | Linear calibration                                 |
+|        |   •   | Thresholding, clipping                             |
+|    •   |   •   | Gaussian filter, Wiener filter                     |
+|    •   |   •   | Moving average, moving median                      |
+|    •   |   •   | FFT, inverse FFT                                   |
+|    •   |       | Interactive fit: Gauss, Lorenzt, Voigt, polynomial |
+|    •   |       | Interactive multigaussian fit                      |
+|    •   |   •   | Computing on custom ROI                            |
+|    •   |       | FWHM, FW @ 1/e²                                    |
+|        |   •   | Centroid (robust method w/r noise)                 |
+|        |   •   | Minimum enclosing circle center                    |
+|        |   •   | Automatic 2D-peak detection                        |
+|        |   •   | Automatic contour extraction (circle/ellipse fit)  |
+
+![Contour detection](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/contour_detection.png)
+
+![Multi-gaussian fit](https://raw.githubusercontent.com/CODRA-Ingenierie-Informatique/CodraFT/master/doc/images/multi_gaussian_fit.png)
