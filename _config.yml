@@ -1,5 +1,6 @@
-logo: /assets/img/codraft_logo_190.png
+logo: /assets/img/logo.png
 show_downloads: true
 theme: jekyll-theme-minimal
 github:
   zip_url: https://github.com/CODRA-Ingenierie-Informatique/CodraFT/releases
+  tar_url: https://github.com/CODRA-Ingenierie-Informatique/CodraFT/releases
