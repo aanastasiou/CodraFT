@@ -24,8 +24,8 @@ the library and [changelog](https://raw.githubusercontent.com/CODRA-Ingenierie-I
 
 Copyrights and licensing:
 
-* Copyright © 2018 [CEA](http://www.cea.fr)-[CODRA](https://codra.net/), Pierre Raybaut
-* Licensed under the terms of the CECILL License
+* Copyright © 2022 [CEA](http://www.cea.fr)-[CODRA](https://codra.net/), Pierre Raybaut
+* Licensed under the terms of the BSD 3-Clause License or the CeCILL-B License v1
 
 ----
 
