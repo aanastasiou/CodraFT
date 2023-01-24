@@ -3,7 +3,7 @@
 See CodraFT [roadmap page](https://codraft.readthedocs.io/en/latest/roadmap.html)
 for future and past milestones.
 
-## Version 2.1.4 ##
+## Version 2.2.0a1 (in progress...) ##
 
 Bug fixes:
 
