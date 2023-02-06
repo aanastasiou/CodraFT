@@ -5,6 +5,15 @@ for future and past milestones.
 
 ## Version 2.2.0a1 (in progress...) ##
 
+Changes:
+
+* Images: added support for XYZ image files
+* All shapes: removed shape drag symbols, so that background image is no longer
+  masked by small-sized shapes
+* At startup, restoring last current panel (image or signal panel)
+
+## Version 2.1.4 ##
+
 Bug fixes:
 
 * HDF5 import/browser features: added support for non-ASCII dataset names
