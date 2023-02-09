@@ -94,6 +94,7 @@ class ObjectProp(QW.QWidget):
 
     def __init__(self, panel, paramclass):
         super().__init__(panel)
+        self.paramclass = paramclass
         self.properties = gdq.DataSetEditGroupBox(_("Properties"), paramclass)
         self.properties.SIG_APPLY_BUTTON_CLICKED.connect(panel.properties_changed)
         self.properties.setEnabled(False)
@@ -170,7 +171,6 @@ class BasePanel(QW.QSplitter, metaclass=BasePanelMeta):
         self.SIG_UPDATE_PLOT_ITEM.connect(self.itmlist.refresh_plot)
         self.SIG_UPDATE_PLOT_ITEMS.connect(self.itmlist.refresh_plot)
         self.objlist.itemSelectionChanged.connect(self.selection_changed)
-        self.objlist.currentRowChanged.connect(self.current_item_changed)
         self.objlist.SIG_ITEM_DOUBLECLICKED.connect(
             lambda row: self.open_separate_view([row])
         )
@@ -313,7 +313,7 @@ class BasePanel(QW.QSplitter, metaclass=BasePanelMeta):
         for index, row in enumerate(self.objlist.get_selected_rows()):
             self.objlist[row].metadata = {}
             if index == 0:
-                self.current_item_changed(row)
+                self.selection_changed()
         self.SIG_UPDATE_PLOT_ITEMS.emit()
 
     @abc.abstractmethod
@@ -411,16 +411,13 @@ class BasePanel(QW.QSplitter, metaclass=BasePanelMeta):
                     QW.QApplication.processEvents()
 
     # ------Refreshing GUI--------------------------------------------------------------
-    def current_item_changed(self, row):
-        """Current item changed"""
-        if row != -1:
-            self.objprop.update_properties_from(self.objlist[row])
-            self.selection_changed()  # for updating object-dependent actions (e.g. roi)
-
     def selection_changed(self):
         """Signal list: selection changed"""
         row = self.objlist.currentRow()
-        self.objprop.properties.setDisabled(row == -1)
+        sel_objs = self.objlist.get_sel_objects()
+        if not sel_objs:
+            row = -1
+        self.objprop.update_properties_from(self.objlist[row] if row != -1 else None)
         self.SIG_UPDATE_PLOT_ITEMS.emit()
         self.acthandler.selection_rows_changed()
 
@@ -476,8 +473,7 @@ class BasePanel(QW.QSplitter, metaclass=BasePanelMeta):
             if rw_items:
                 obj = self.__separate_views[dlg]
                 obj.set_annotations_from_items(rw_items)
-                row = self.objlist.get_row(obj)
-                self.current_item_changed(row)
+                self.selection_changed()
                 self.SIG_UPDATE_PLOT_ITEMS.emit()
 
     def toggle_show_titles(self, state):

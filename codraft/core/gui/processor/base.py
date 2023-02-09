@@ -307,7 +307,7 @@ class BaseProcessor(QC.QObject):
                 results[row] = result
                 xlabels = result.xlabels
                 self.SIG_ADD_SHAPE.emit(row)
-                self.panel.current_item_changed(row)
+                self.panel.selection_changed()
                 self.panel.SIG_UPDATE_PLOT_ITEM.emit(row)
                 for _i_row_res in range(result.array.shape[0]):
                     ylabel = f"{name}({self.prefix}{idx:03d}){title_suffix}"
@@ -415,7 +415,7 @@ class BaseProcessor(QC.QObject):
                     # If ROI has been modified, save ROI (even in "extract mode")
                     obj.roi = roidata
                     self.SIG_ADD_SHAPE.emit(row)
-                    self.panel.current_item_changed(row)
+                    self.panel.selection_changed()
                     self.panel.SIG_UPDATE_PLOT_ITEMS.emit()
         return roieditordata
 
@@ -425,7 +425,7 @@ class BaseProcessor(QC.QObject):
             obj = self.objlist[row]
             if obj.roi is not None:
                 obj.roi = None
-                self.panel.current_item_changed(row)
+                self.panel.selection_changed()
                 self.panel.SIG_UPDATE_PLOT_ITEMS.emit()
 
     @abc.abstractmethod
