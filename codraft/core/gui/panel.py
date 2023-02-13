@@ -65,7 +65,7 @@ from codraft.core.gui import actionhandler, objectlist, plotitemlist, roieditor
 from codraft.core.gui.processor.image import ImageProcessor
 from codraft.core.gui.processor.signal import SignalProcessor
 from codraft.core.io.signal import read_signal, write_signal
-from codraft.core.model.base import MetadataItem, ResultShape
+from codraft.core.model.base import MetadataItem, ObjectItf, ResultShape
 from codraft.core.model.image import (
     ImageDatatypes,
     ImageParam,
@@ -114,8 +114,11 @@ class ObjectProp(QW.QWidget):
         """Add additional button on bottom of properties panel"""
         self.add_prop_layout.addWidget(button)
 
-    def update_properties_from(self, param):
+    def update_properties_from(self, param: ObjectItf = None):
         """Update properties from signal/image dataset"""
+        self.properties.setDisabled(param is None)
+        if param is None:
+            param = self.paramclass()
         self.properties.dataset.set_defaults()
         update_dataset(self.properties.dataset, param)
         self.properties.get()
