@@ -4,7 +4,7 @@ Roadmap
 Future milestones
 -----------------
 
-CodraFT 2.4
+CodraFT 2.5
 ^^^^^^^^^^^
 
 * Run computations in a separate process:
@@ -24,16 +24,16 @@ CodraFT 2.4
 
 * Optimize image displaying performance
 
-CodraFT 2.3
+CodraFT 2.4
 ^^^^^^^^^^^
 
-* New plugin system: API for third-party extensions
+* New plugin system (API for third-party extensions):
 
-   - Objective #1: a plugin must be manageable using a single Python script, which
-     includes an extension of `ImageProcessor`, `ActionHandler` and new file format
-     support
-   - Objective #2: plugins must be simply stored in a folder wich defaults to the
-     user directory (same folder as ".CodraFT.ini" configuration file)
+   - Objective #1: a plugin must be manageable using a single Python script,
+     which includes an extension of `ImageProcessor`, `ActionHandler` and
+     new file format support
+   - Objective #2: plugins must be simply stored in a folder wich defaults
+     to the user directory (same folder as ".CodraFT.ini" configuration file)
 
 * Add a macro-command system:
 
@@ -44,11 +44,36 @@ CodraFT 2.3
 * Add an xmlrpc server to allow external applications controlling
   CodraFT main features (open a signal or an image, open a HDF5 file, etc.)
 
-CodraFT 2.2
+CodraFT 2.3
 ^^^^^^^^^^^
 
-* Add new image processing features: denoising, ...
-* Add default image visualization settings in .INI configuration file
+* Add "Computing parameters" group box to show last result input parameters
+
+* Add "Copy titles to clipboard" feature in "Edit" menu
+
+* Image processing:
+
+  - Add pixel binning operation (binning factors, operation: sum, mean, ...)
+  - Add Total variation denoising filter (TV Chambolle)
+  - Add Bilateral filter (denoising)
+  - Add Wavelet denoising filter
+  - Add white Top-Hat denoising filter
+
+  - Add morphological transforms (disk footprint):
+
+    * White Top-Hat
+    * Black Top-Hat
+    * Erosion
+    * Dilation
+    * Opening
+    * Closing
+
+  - Add Canny filter (edge detection)
+  - Add circle Hough transform (circle detection)
+  - Add image intensity levels rescaling
+  - Add histogram equalization
+  - Add adaptative histogram equalization
+  - Add blob detection using Determinant of Hessian method
 
 Other ideas for future releases
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -59,6 +84,13 @@ Other ideas for future releases
 
 Past milestones
 ---------------
+
+CodraFT 2.2
+^^^^^^^^^^^
+
+* Optimize image visualization performance
+
+* Add default image visualization settings in .INI configuration file
 
 CodraFT 2.1
 ^^^^^^^^^^^
