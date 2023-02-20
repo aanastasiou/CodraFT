@@ -3,7 +3,7 @@
 See CodraFT [roadmap page](https://codraft.readthedocs.io/en/latest/roadmap.html)
 for future and past milestones.
 
-## Version 2.2.0a1 (in progress...) ##
+## Version 2.2.0 ##
 
 New features:
 
@@ -13,6 +13,8 @@ New features:
 * At startup, restoring last current panel (image or signal panel)
 * Plot cleanup and shape management: greatly optimized performance
 * After removing object(s) (signal/image), the previous object in the list is selected
+* Added default image visualization settings in .INI configuration file
+* Using guiqwt v4.3.2: fixed pixel position (first pixel is centered at (0,0) coords)
 
 ## Version 2.1.4 ##
 
