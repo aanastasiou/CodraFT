@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CodraFT \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-15 09:29+0200\n"
+"POT-Creation-Date: 2023-05-31 14:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: ../../index.rst:29
+#: ../../index.rst:47
 msgid "Contents:"
 msgstr "Table des matières :"
 
@@ -25,23 +25,54 @@ msgstr "Table des matières :"
 msgid "CodraFT user guide"
 msgstr "Manuel utilisateur de CodraFT"
 
-#: ../../index.rst:4
+#: ../../index.rst:5
+msgid "Important note"
+msgstr "Note importante"
+
+#: ../../index.rst:7
+msgid "CodraFT will soon be replaced by **DataLab**."
+msgstr "CodraFT sera bientôt remplacé par **DataLab**."
+
+#: ../../index.rst:11
+msgid "DataLab is the next major release of CodraFT"
+msgstr "DataLab est la prochaine version majeure de CodraFT"
+
+#: ../../index.rst:13
+msgid ""
+"DataLab is a platform for data processing and visualization, with a focus"
+" on extensibility, automation and reproducibility, thanks to its macro-"
+"command system, a high-level Python API and a plugin system."
+msgstr ""
+"DataLab est une plateforme de traitement et de visualisation de données, "
+"axée sur l'extensibilité, l'automatisation et la reproductibilité, grâce "
+"à son système de macro-commandes, une API Python de haut niveau et un "
+"système de plugins."
+
+#: ../../index.rst:17
+msgid "See :ref:`ref-to-roadmap` for more information."
+msgstr "Voir :ref:`ref-to-roadmap` pour plus d'informations."
+
+#: ../../index.rst:20
+msgid "CodraFT Overview"
+msgstr "Présentation de CodraFT"
+
+#: ../../index.rst:22
 msgid ""
 "CodraFT is a **generic signal and image processing software**. It is "
-"based on Python scientific libraries (such as NumPy, SciPy or scikit-image) and"
-" Qt graphical user interfaces (thanks to `guidata`_ and `guiqwt`_ "
-"libraries)."
+"based on Python scientific libraries (such as NumPy, SciPy or scikit-"
+"image) and Qt graphical user interfaces (thanks to `guidata`_ and "
+"`guiqwt`_ libraries)."
 msgstr ""
 "CodraFT est un **logiciel générique de traitement du signal et de "
 "l'image** basé sur des bibliothèques scientifiques Python (telles que "
-"NumPy, SciPy ou encore scikit-image) et sur les interfaces graphiques Qt (grâce"
-" aux bibliothèques `guidata`_ et `guiqwt`_)."
+"NumPy, SciPy ou encore scikit-image) et sur les interfaces graphiques Qt "
+"(grâce aux bibliothèques `guidata`_ et `guiqwt`_)."
 
-#: ../../index.rst:11
+#: ../../index.rst:29
 msgid "Signal and image visualization in CodraFT"
 msgstr "Visualisation de signaux et d'images dans CodraFT"
 
-#: ../../index.rst:13
+#: ../../index.rst:31
 msgid ""
 "CodraFT features are available not only using the **stand-alone "
 "application** (easily installed thanks to the Windows installer or the "
@@ -54,43 +85,43 @@ msgstr ""
 "**embarquant CodraFT dans votre propre application** (cf. les tests "
 "\"embedded\" pour des exemples détaillés sur la façon de procéder)."
 
-#: ../../index.rst:27
+#: ../../index.rst:45
 msgid "External resources:"
 msgstr "Ressources externes :"
 
-#: ../../index.rst:22
+#: ../../index.rst:40
 msgid "`Home`_"
 msgstr ""
 
-#: ../../index.rst:23
+#: ../../index.rst:41
 msgid "CodraFT home page"
 msgstr "Site de CodraFT"
 
-#: ../../index.rst:24
+#: ../../index.rst:42
 msgid "`PyPI`_"
 msgstr ""
 
-#: ../../index.rst:25
+#: ../../index.rst:43
 msgid "Python Package Index"
 msgstr "Paquet Python officiel"
 
-#: ../../index.rst:26
+#: ../../index.rst:44
 msgid "`GitHub`_"
 msgstr ""
 
-#: ../../index.rst:27
+#: ../../index.rst:45
 msgid "Bug reports and feature requests"
 msgstr "Signalement d'anomalies et demandes d'évolutions"
 
-#: ../../index.rst:40
+#: ../../index.rst:59
 msgid "Copyrights and licensing"
 msgstr "Licence et copyrights"
 
-#: ../../index.rst:42
+#: ../../index.rst:61
 msgid "Copyright © 2022 `CEA`_ - `CODRA`_, Pierre Raybaut"
 msgstr ""
 
-#: ../../index.rst:43
+#: ../../index.rst:62
 msgid "Licensed under the terms of the `BSD / CeCILL-B License`_"
 msgstr "Distribué sous licence `BSD / CeCILL-B License`_"
 
@@ -108,3 +139,6 @@ msgstr "Distribué sous licence `BSD / CeCILL-B License`_"
 
 #~ msgid ":ref:`search`"
 #~ msgstr ""
+
+#~ msgid "Overview"
+#~ msgstr "Présentation"

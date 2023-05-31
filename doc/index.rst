@@ -16,8 +16,8 @@ system, a high-level Python API and a plugin system.
 
 See :ref:`ref-to-roadmap` for more information.
 
-Overview
---------
+CodraFT Overview
+----------------
 
 CodraFT is a **generic signal and image processing software**.
 It is based on Python scientific libraries (such as NumPy,

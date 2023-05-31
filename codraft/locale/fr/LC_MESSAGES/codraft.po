@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-02-12 11:19+0100\n"
+"POT-Creation-Date: 2023-05-31 14:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,7 +94,7 @@ msgstr "Supprimer les métadonnées"
 msgid "Delete all that is contained in object metadata"
 msgstr "Supprimer toutes les métadonnées liées à l'objet"
 
-#: codraft\core\gui\actionhandler.py:172 codraft\core\gui\panel.py:294
+#: codraft\core\gui\actionhandler.py:172 codraft\core\gui\panel.py:297
 msgid "Delete all"
 msgstr "Supprimer tout"
 
@@ -120,7 +120,7 @@ msgstr ""
 msgid "Sum"
 msgstr "Addition"
 
-#: codraft\core\gui\actionhandler.py:224 codraft\core\gui\processor\base.py:102
+#: codraft\core\gui\actionhandler.py:224
 msgid "Average"
 msgstr "Moyenne"
 
@@ -324,7 +324,7 @@ msgid "Compute image centroid"
 msgstr "Calcule le barycentre de l'image"
 
 #: codraft\core\gui\actionhandler.py:459
-#: codraft\core\gui\processor\image.py:539 codraft\tests\centroid_unit.py:59
+#: codraft\core\gui\processor\image.py:539
 #: codraft\tests\enclosingcircle_unit.py:34
 msgid "Centroid"
 msgstr "Barycentre"
@@ -593,10 +593,6 @@ msgstr "Configuration d'installation de CodraFT"
 msgid "Console"
 msgstr "Console"
 
-#: codraft\core\gui\main.py:654 codraft\core\gui\main.py:694
-msgid "HDF5 files"
-msgstr "Fichiers HDF5"
-
 #: codraft\core\gui\main.py:655
 msgid "Save"
 msgstr "Enregistrer"
@@ -609,7 +605,7 @@ msgstr ""
 "Souhaitez-vous supprimer tous les signaux et images avant d'importer des "
 "données depuis un fichier HDF5 ?"
 
-#: codraft\core\gui\main.py:695 codraft\core\gui\panel.py:340
+#: codraft\core\gui\main.py:695 codraft\core\gui\panel.py:343
 msgid "Open"
 msgstr "Ouvrir"
 
@@ -633,19 +629,19 @@ msgstr ""
 "Souhaitez-vous enregistrer tous les signaux et images dans un fichier HDF5 "
 "avant de quitter CodraFT ?"
 
-#: codraft\core\gui\panel.py:97
+#: codraft\core\gui\panel.py:98
 msgid "Properties"
 msgstr "Propriétés"
 
-#: codraft\core\gui\panel.py:295
+#: codraft\core\gui\panel.py:298
 msgid "Do you want to delete all objects (%s)?"
 msgstr "Souhaitez-vous supprimer tous les objets (%s) ?"
 
-#: codraft\core\gui\panel.py:368
+#: codraft\core\gui\panel.py:371
 msgid "Import metadata"
 msgstr "Importer les métadonnées"
 
-#: codraft\core\gui\panel.py:386
+#: codraft\core\gui\panel.py:389
 msgid "Export metadata"
 msgstr "Exporter les métadonnées"
 
@@ -653,28 +649,28 @@ msgstr "Exporter les métadonnées"
 msgid "Annotations"
 msgstr "Annotations"
 
-#: codraft\core\gui\panel.py:568 codraft\core\gui\roieditor.py:205
+#: codraft\core\gui\panel.py:567 codraft\core\gui\roieditor.py:205
 #: codraft\core\model\base.py:522
 msgid "Regions of interest"
 msgstr "Régions d'intérêt"
 
-#: codraft\core\gui\panel.py:592
+#: codraft\core\gui\panel.py:591
 msgid "Show results"
 msgstr "Afficher les résultats"
 
-#: codraft\core\gui\panel.py:593
+#: codraft\core\gui\panel.py:592
 msgid "Show results obtained from previous computations"
 msgstr "Afficher les résultats obtenus avec des calculs réalisés précédemment"
 
-#: codraft\core\gui\panel.py:630 codraft\core\gui\processor\base.py:319
+#: codraft\core\gui\panel.py:629 codraft\core\gui\processor\base.py:319
 msgid "Results"
 msgstr "Résultats"
 
-#: codraft\core\gui\panel.py:644
+#: codraft\core\gui\panel.py:643
 msgid "No result currently available for this object."
 msgstr "Aucun résultat disponible pour le moment."
 
-#: codraft\core\gui\panel.py:646
+#: codraft\core\gui\panel.py:645
 msgid ""
 "This feature shows result arrays as displayed after calling one of the "
 "computing feature (see \"Compute\" menu)."
@@ -682,23 +678,15 @@ msgstr ""
 "Cette fonctionnalité permet d'afficher les tableaux de résultats tels "
 "qu'obtenus après avoir réalisé des calculs (voir menu \"Calculs\")."
 
-#: codraft\core\gui\panel.py:659
+#: codraft\core\gui\panel.py:658
 msgid "Signal List"
 msgstr "Liste des Signaux"
 
-#: codraft\core\gui\panel.py:663
-msgid "NumPy arrays"
-msgstr "Tableaux NumPy"
-
-#: codraft\core\gui\panel.py:663
-msgid "Text files"
-msgstr "Fichiers texte"
-
-#: codraft\core\gui\panel.py:711 codraft\core\gui\panel.py:809
+#: codraft\core\gui\panel.py:710 codraft\core\gui\panel.py:807
 msgid "Save as"
 msgstr "Enregistrer sous"
 
-#: codraft\core\gui\panel.py:723
+#: codraft\core\gui\panel.py:722
 msgid "Image List"
 msgstr "Liste des Images"
 
@@ -724,10 +712,6 @@ msgstr "Paramètres"
 #: codraft\core\gui\processor\base.py:303
 msgid "Computing:"
 msgstr "Calcul en cours :"
-
-#: codraft\core\gui\processor\image.py:49
-msgid "Angle"
-msgstr "Angle"
 
 #: codraft\core\gui\processor\image.py:51
 #: codraft\core\gui\processor\image.py:91
@@ -1228,10 +1212,6 @@ msgstr "%s n'a pas pu être ouvert:"
 msgid "%s could not be written:"
 msgstr "%s n'a pas pu être écrit:"
 
-#: codraft\utils\vistools.py:29
-msgid "Test dialog"
-msgstr ""
-
 #: codraft\widgets\fitdialog.py:87
 msgid "Polymomial fit"
 msgstr "Ajustement polynomial"
@@ -1308,10 +1288,6 @@ msgstr "Cocher tout"
 msgid "Uncheck all"
 msgstr "Décocher tout"
 
-#: codraft\widgets\logviewer.py:28
-msgid "Contents of file"
-msgstr "Contenu du fichier"
-
 #: codraft\widgets\logviewer.py:58
 msgid "CodraFT log files"
 msgstr "Journaux de bord de CodraFT"
@@ -1328,14 +1304,28 @@ msgstr "Distance minimale :"
 msgid "Signal peak detection"
 msgstr "Détection de pics 1D"
 
-#: codraft\widgets\signalpeakdialog.py:122
-#, fuzzy
-msgid "Peaks:"
-msgstr "Pics"
-
 #: codraft\widgets\status.py:66
 msgid "Memory:"
 msgstr "Mémoire :"
+
+#~ msgid "HDF5 files"
+#~ msgstr "Fichiers HDF5"
+
+#~ msgid "NumPy arrays"
+#~ msgstr "Tableaux NumPy"
+
+#~ msgid "Text files"
+#~ msgstr "Fichiers texte"
+
+#~ msgid "Angle"
+#~ msgstr "Angle"
+
+#~ msgid "Contents of file"
+#~ msgstr "Contenu du fichier"
+
+#, fuzzy
+#~ msgid "Peaks:"
+#~ msgstr "Pics"
 
 #~ msgid "Unable to open file"
 #~ msgstr "Impossible d'ouvrir le fichier"

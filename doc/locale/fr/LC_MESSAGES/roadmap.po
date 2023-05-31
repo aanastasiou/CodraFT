@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CodraFT \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-28 17:04+0200\n"
+"POT-Creation-Date: 2023-05-31 14:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,173 +17,344 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: ../../roadmap.rst:2
+#: ../../roadmap.rst:4
 msgid "Roadmap"
 msgstr ""
 
-#: ../../roadmap.rst:5
-msgid "Future milestones"
-msgstr ""
-
-#: ../../roadmap.rst:8
-msgid "CodraFT 2.3"
+#: ../../roadmap.rst:7
+msgid "Next major release: DataLab"
 msgstr ""
 
 #: ../../roadmap.rst:10
-msgid "Run computations in a separate process:"
+msgid "DataLab 1.0"
 msgstr ""
 
-#: ../../roadmap.rst:12
+#: ../../roadmap.rst:14
+msgid "DataLab is the next major release of CodraFT"
+msgstr ""
+
+#: ../../roadmap.rst:16
+msgid ""
+"DataLab is a platform for data processing and visualization, with a focus"
+" on extensibility, automation and reproducibility, thanks to its macro-"
+"command system, a high-level Python API and a plugin system."
+msgstr ""
+
+#: ../../roadmap.rst:22
+msgid "DataLab overview"
+msgstr ""
+
+#: ../../roadmap.rst:24
+msgid ""
+"DataLab is a complete rewrite of CodraFT, with a new architecture and new"
+" features, including:"
+msgstr ""
+
+#: ../../roadmap.rst:27
+msgid "Process isolation for running computations safely:"
+msgstr ""
+
+#: ../../roadmap.rst:29
 msgid "Execute a \"computing server\" in background, in another process"
 msgstr ""
 
-#: ../../roadmap.rst:13
-msgid ""
-"Define a communication protocol between this process and CodraFT GUI "
-"process based on TCP sockets"
-msgstr ""
-
-#: ../../roadmap.rst:15
+#: ../../roadmap.rst:30
 msgid ""
 "For each computation, send pickled data and computing function to the "
 "server and wait for the result"
 msgstr ""
 
-#: ../../roadmap.rst:17
-msgid ""
-"It will then possible to stop any computation at any time by killing the "
-"server process and restarting it (eventually after incrementing the "
-"communication port number)"
-msgstr ""
-
-#: ../../roadmap.rst:21
-msgid ""
-"Add an xmlrpc server to allow external applications controlling CodraFT "
-"main features (open a signal or an image, open a HDF5 file, etc.)"
-msgstr ""
-
-#: ../../roadmap.rst:24
-msgid "Optimize image displaying performance"
-msgstr ""
-
-#: ../../roadmap.rst:27
-msgid "CodraFT 2.2"
-msgstr ""
-
-#: ../../roadmap.rst:29
-msgid "New plugin system: API for third-party extensions"
-msgstr ""
-
-#: ../../roadmap.rst:31
-msgid "Add a macro-command system:"
+#: ../../roadmap.rst:32
+msgid "Application main window stays responsive during computations"
 msgstr ""
 
 #: ../../roadmap.rst:33
-msgid "New embedded Python editor"
+msgid ""
+"It is then possible to stop any computation at any time by killing the "
+"server process and restarting it"
 msgstr ""
 
-#: ../../roadmap.rst:34
-msgid "Scripts using the same API as high-level applicative test scenarios"
-msgstr ""
-
-#: ../../roadmap.rst:35
-msgid "Support for macro recording"
+#: ../../roadmap.rst:36
+msgid "Image displaying performance optimization"
 msgstr ""
 
 #: ../../roadmap.rst:38
-msgid "Other ideas for future releases"
+msgid "Support for plugins:"
 msgstr ""
 
 #: ../../roadmap.rst:40
-msgid "Add support for multichannel timeseries"
+msgid "Custom processing features available in the \"Plugins\" menu"
 msgstr ""
 
-#: ../../roadmap.rst:42
-msgid "Add a \"Preferences\" dialog box to setup all configurable parameters"
+#: ../../roadmap.rst:41
+msgid ""
+"Custom I/O features: new file formats can be added to the standard I/O "
+"features for signals and images"
+msgstr ""
+
+#: ../../roadmap.rst:43
+msgid ""
+"Custom HDF5 features: new HDF5 file formats can be added to the standard "
+"HDF5 import feature"
 msgstr ""
 
 #: ../../roadmap.rst:45
-msgid "Past milestones"
+msgid "More features to come..."
 msgstr ""
 
-#: ../../roadmap.rst:48
-msgid "CodraFT 2.1"
+#: ../../roadmap.rst:47
+msgid "New macro-command system:"
+msgstr ""
+
+#: ../../roadmap.rst:49
+msgid "New embedded Python editor"
 msgstr ""
 
 #: ../../roadmap.rst:50
+msgid "Scripts using the same API as high-level applicative test scenarios"
+msgstr ""
+
+#: ../../roadmap.rst:51
+msgid "Support for macro recording"
+msgstr ""
+
+#: ../../roadmap.rst:53
+msgid ""
+"New XML-RPC server to allow external applications controlling CodraFT "
+"main features (open a signal or an image, open a HDF5 file, etc.)"
+msgstr ""
+
+#: ../../roadmap.rst:56
+msgid ""
+"New \"Computing parameters\" group box to show last result input "
+"parameters"
+msgstr ""
+
+#: ../../roadmap.rst:58
+msgid "New \"Copy titles to clipboard\" feature in \"Edit\" menu"
+msgstr ""
+
+#: ../../roadmap.rst:60
+msgid "New image processing features:"
+msgstr ""
+
+#: ../../roadmap.rst:62
+msgid "Pixel binning operation (X/Y binning factors, operation: sum, mean, ...)"
+msgstr ""
+
+#: ../../roadmap.rst:63
+msgid "\"Distribute on a grid\" and \"Reset image positions\" in operation menu"
+msgstr ""
+
+#: ../../roadmap.rst:64
+msgid "Butterworth filter"
+msgstr ""
+
+#: ../../roadmap.rst:65
+msgid ""
+"Exposure processing features: * Gamma correction * Logarithmic correction"
+" * Sigmoïd correction"
+msgstr ""
+
+#: ../../roadmap.rst:69
+msgid ""
+"Restoration processing features: * Total variation denoising filter (TV "
+"Chambolle) * Bilateral filter (denoising) * Wavelet denoising filter * "
+"White Top-Hat denoising filter"
+msgstr ""
+
+#: ../../roadmap.rst:74
+msgid ""
+"Morphological transforms (disk footprint): * White Top-Hat * Black Top-"
+"Hat * Erosion * Dilation * Opening * Closing"
+msgstr ""
+
+#: ../../roadmap.rst:81
+msgid ""
+"Edge detection features: * Roberts filter * Prewitt filter (vertical, "
+"horizontal, both) * Sobel filter (vertical, horizontal, both) * Scharr "
+"filter (vertical, horizontal, both) * Farid filter (vertical, horizontal,"
+" both) * Laplace filter * Canny filter"
+msgstr ""
+
+#: ../../roadmap.rst:89
+msgid "Circle Hough transform (circle detection)"
+msgstr ""
+
+#: ../../roadmap.rst:90
+msgid "Image intensity levels rescaling"
+msgstr ""
+
+#: ../../roadmap.rst:91
+msgid "Histogram equalization"
+msgstr ""
+
+#: ../../roadmap.rst:92
+msgid "Adaptative histogram equalization"
+msgstr ""
+
+#: ../../roadmap.rst:93
+msgid ""
+"Blob detection methods: * Difference of Gaussian * Determinant of Hessian"
+" method * Laplacian of Gaussian * Blob detection using OpenCV"
+msgstr ""
+
+#: ../../roadmap.rst:98
+msgid ""
+"Result shapes and annotations are now transformed (instead of removed) "
+"when executing one of the following operations: * Rotation (arbitrary "
+"angle, +90°, -90°) * Symetry (vertical/horizontal)"
+msgstr ""
+
+#: ../../roadmap.rst:104
+msgid "Other ideas for future releases"
+msgstr ""
+
+#: ../../roadmap.rst:106
+msgid "Add support for multichannel timeseries"
+msgstr ""
+
+#: ../../roadmap.rst:108
+msgid "Add support for timeseries"
+msgstr ""
+
+#: ../../roadmap.rst:110
+msgid "Add a \"Preferences\" dialog box to setup all configurable parameters"
+msgstr ""
+
+#: ../../roadmap.rst:113
+msgid "Past milestones"
+msgstr ""
+
+#: ../../roadmap.rst:116
+msgid "CodraFT 2.2"
+msgstr ""
+
+#: ../../roadmap.rst:118
+msgid "Optimize image visualization performance"
+msgstr ""
+
+#: ../../roadmap.rst:120
+msgid "Add default image visualization settings in .INI configuration file"
+msgstr ""
+
+#: ../../roadmap.rst:123
+msgid "CodraFT 2.1"
+msgstr ""
+
+#: ../../roadmap.rst:125
 msgid ""
 "\"Open in a new window\" feature: add support for multiple separate "
 "windows, thus allowing to visualize for example two images side by side"
 msgstr ""
 
-#: ../../roadmap.rst:53
+#: ../../roadmap.rst:128
 msgid "New demo mode"
 msgstr ""
 
-#: ../../roadmap.rst:55
+#: ../../roadmap.rst:130
 msgid "New command line option features (open/browse HDF5 files at startup)"
 msgstr ""
 
-#: ../../roadmap.rst:57
+#: ../../roadmap.rst:132
 msgid "ROI features:"
 msgstr ""
 
-#: ../../roadmap.rst:59
+#: ../../roadmap.rst:134
 msgid ""
 "Add an option to extract multiples ROI on either one signal/image "
 "(current behavior) or one signal/image per ROI"
 msgstr ""
 
-#: ../../roadmap.rst:61
+#: ../../roadmap.rst:136
 msgid "Images: create ROI using array masks"
 msgstr ""
 
-#: ../../roadmap.rst:62
+#: ../../roadmap.rst:137
 msgid "Images: add support for circular ROI"
 msgstr ""
 
-#: ../../roadmap.rst:65
+#: ../../roadmap.rst:140
 msgid "CodraFT 2.0"
 msgstr ""
 
-#: ../../roadmap.rst:67
+#: ../../roadmap.rst:142
 msgid "New data processing and visualization features (see below)"
 msgstr ""
 
-#: ../../roadmap.rst:69
+#: ../../roadmap.rst:144
 msgid ""
 "Fully automated high-level processing features for internal testing "
 "purpose, as well as embedding CodraFT in a third-party software"
 msgstr ""
 
-#: ../../roadmap.rst:72
+#: ../../roadmap.rst:147
 #, python-format
 msgid ""
 "Extensive test suite (unit tests and application tests) with 90% feature "
 "coverage"
 msgstr ""
 
-#: ../../roadmap.rst:76
+#: ../../roadmap.rst:151
 msgid "CodraFT 1.7"
 msgstr ""
 
-#: ../../roadmap.rst:78
+#: ../../roadmap.rst:153
 msgid "Major redesign"
 msgstr ""
 
-#: ../../roadmap.rst:80
+#: ../../roadmap.rst:155
 msgid "Python 3.8 is the new reference"
 msgstr ""
 
-#: ../../roadmap.rst:82
+#: ../../roadmap.rst:157
 msgid "Dropped Python 2 support"
 msgstr ""
 
-#: ../../roadmap.rst:85
+#: ../../roadmap.rst:160
 msgid "CodraFT 1.6"
 msgstr ""
 
-#: ../../roadmap.rst:87
+#: ../../roadmap.rst:162
 msgid "Last release supporting Python 2"
 msgstr ""
+
+#~ msgid "Future milestones"
+#~ msgstr ""
+
+#~ msgid "CodraFT 2.3"
+#~ msgstr ""
+
+#~ msgid "Run computations in a separate process:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Define a communication protocol between "
+#~ "this process and CodraFT GUI process "
+#~ "based on TCP sockets"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "It will then possible to stop any"
+#~ " computation at any time by killing"
+#~ " the server process and restarting it"
+#~ " (eventually after incrementing the "
+#~ "communication port number)"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Add an xmlrpc server to allow "
+#~ "external applications controlling CodraFT main"
+#~ " features (open a signal or an "
+#~ "image, open a HDF5 file, etc.)"
+#~ msgstr ""
+
+#~ msgid "Optimize image displaying performance"
+#~ msgstr ""
+
+#~ msgid "New plugin system: API for third-party extensions"
+#~ msgstr ""
+
+#~ msgid "Add a macro-command system:"
+#~ msgstr ""
 
