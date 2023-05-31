@@ -11,6 +11,19 @@ CodraFT is [CODRA](https://codra.net/)'s Filtering Tool.
 
 ----
 
+## Important note
+
+**CodraFT will soon be replaced by DataLab.**
+
+![DataLab - The open-source data processing and visualization platform](./doc/images/DataLab-banner.png)
+
+DataLab is a platform for data processing and visualization, with a focus on
+extensibility, automation and reproducibility, thanks to its macro-command
+system, a high-level Python API and a plugin system.
+
+See [roadmap](https://codraft.readthedocs.io/en/latest/roadmap.html) section in
+documentation for more details.
+
 ## Overview
 
 CodraFT is a generic signal and image processing software based on Python scientific

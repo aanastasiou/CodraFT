@@ -1,84 +1,109 @@
 Roadmap
 =======
 
-Future milestones
------------------
+Next major release: DataLab
+---------------------------
 
-CodraFT 2.5
+DataLab 1.0
 ^^^^^^^^^^^
 
-* Run computations in a separate process:
+.. figure:: images/DataLab-banner.png
 
-  - Execute a "computing server" in background, in another process
-  - Define a communication protocol between this process and
-    CodraFT GUI process based on TCP sockets
-  - For each computation, send pickled data and computing function
+    DataLab is the next major release of CodraFT
+
+DataLab is a platform for data processing and visualization, with a focus on
+extensibility, automation and reproducibility, thanks to its macro-command
+system, a high-level Python API and a plugin system.
+
+.. figure:: images/DataLab-Overview.png
+
+    DataLab overview
+
+DataLab is a complete rewrite of CodraFT, with a new architecture and
+new features, including:
+
+* Process isolation for running computations safely:
+
+  * Execute a "computing server" in background, in another process
+  * For each computation, send pickled data and computing function
     to the server and wait for the result
-  - It will then possible to stop any computation at any time by killing the
-    server process and restarting it (eventually after incrementing the
-    communication port number)
+  * Application main window stays responsive during computations
+  * It is then possible to stop any computation at any time by killing the
+    server process and restarting it
 
-* Run computations in a separate process (alternative solution):
+* Image displaying performance optimization
 
-  - Use an IPython kernel to provide the same features as described above
+* Support for plugins:
 
-* Optimize image displaying performance
+  * Custom processing features available in the "Plugins" menu
+  * Custom I/O features: new file formats can be added to the standard I/O
+    features for signals and images
+  * Custom HDF5 features: new HDF5 file formats can be added to the standard
+    HDF5 import feature
+  * More features to come...
 
-CodraFT 2.4
-^^^^^^^^^^^
+* New macro-command system:
 
-* New plugin system (API for third-party extensions):
+  * New embedded Python editor
+  * Scripts using the same API as high-level applicative test scenarios
+  * Support for macro recording
 
-   - Objective #1: a plugin must be manageable using a single Python script,
-     which includes an extension of `ImageProcessor`, `ActionHandler` and
-     new file format support
-   - Objective #2: plugins must be simply stored in a folder wich defaults
-     to the user directory (same folder as ".CodraFT.ini" configuration file)
-
-* Add a macro-command system:
-
-  - New embedded Python editor
-  - Scripts using the same API as high-level applicative test scenarios
-  - Support for macro recording
-
-* Add an xmlrpc server to allow external applications controlling
+* New XML-RPC server to allow external applications controlling
   CodraFT main features (open a signal or an image, open a HDF5 file, etc.)
 
-CodraFT 2.3
-^^^^^^^^^^^
+* New "Computing parameters" group box to show last result input parameters
 
-* Add "Computing parameters" group box to show last result input parameters
+* New "Copy titles to clipboard" feature in "Edit" menu
 
-* Add "Copy titles to clipboard" feature in "Edit" menu
+* New image processing features:
 
-* Image processing:
-
-  - Add pixel binning operation (binning factors, operation: sum, mean, ...)
-  - Add Total variation denoising filter (TV Chambolle)
-  - Add Bilateral filter (denoising)
-  - Add Wavelet denoising filter
-  - Add white Top-Hat denoising filter
-
-  - Add morphological transforms (disk footprint):
-
+  * Pixel binning operation (X/Y binning factors, operation: sum, mean, ...)
+  * "Distribute on a grid" and "Reset image positions" in operation menu
+  * Butterworth filter
+  * Exposure processing features:
+    * Gamma correction
+    * Logarithmic correction
+    * Sigmoïd correction
+  * Restoration processing features:
+    * Total variation denoising filter (TV Chambolle)
+    * Bilateral filter (denoising)
+    * Wavelet denoising filter
+    * White Top-Hat denoising filter
+  * Morphological transforms (disk footprint):
     * White Top-Hat
     * Black Top-Hat
     * Erosion
     * Dilation
     * Opening
     * Closing
-
-  - Add Canny filter (edge detection)
-  - Add circle Hough transform (circle detection)
-  - Add image intensity levels rescaling
-  - Add histogram equalization
-  - Add adaptative histogram equalization
-  - Add blob detection using Determinant of Hessian method
+  * Edge detection features:
+    * Roberts filter
+    * Prewitt filter (vertical, horizontal, both)
+    * Sobel filter (vertical, horizontal, both)
+    * Scharr filter (vertical, horizontal, both)
+    * Farid filter (vertical, horizontal, both)
+    * Laplace filter
+    * Canny filter
+  * Circle Hough transform (circle detection)
+  * Image intensity levels rescaling
+  * Histogram equalization
+  * Adaptative histogram equalization
+  * Blob detection methods:
+    * Difference of Gaussian
+    * Determinant of Hessian method
+    * Laplacian of Gaussian
+    * Blob detection using OpenCV
+  * Result shapes and annotations are now transformed (instead of removed) when
+    executing one of the following operations:
+    * Rotation (arbitrary angle, +90°, -90°)
+    * Symetry (vertical/horizontal)
 
 Other ideas for future releases
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Add support for multichannel timeseries
+
+* Add support for timeseries
 
 * Add a "Preferences" dialog box to setup all configurable parameters
 
