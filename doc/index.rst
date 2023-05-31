@@ -1,6 +1,24 @@
 CodraFT user guide
 ==================
 
+Important note
+--------------
+
+CodraFT will soon be replaced by **DataLab**.
+
+.. figure:: images/DataLab-banner.png
+
+    DataLab is the next major release of CodraFT
+
+DataLab is a platform for data processing and visualization, with a focus on
+extensibility, automation and reproducibility, thanks to its macro-command
+system, a high-level Python API and a plugin system.
+
+See :ref:`ref-to-roadmap` for more information.
+
+Overview
+--------
+
 CodraFT is a **generic signal and image processing software**.
 It is based on Python scientific libraries (such as NumPy,
 SciPy or scikit-image) and Qt graphical user interfaces
