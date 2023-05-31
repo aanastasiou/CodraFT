@@ -56,18 +56,44 @@ def normalize(yin, parameter="maximum"):
     raise RuntimeError(f"Unsupported parameter {parameter}")
 
 
-def xy_fft(x, y):
-    """Compute FFT on X,Y data"""
+def xy_fft(x, y, shift=True):
+    """Compute FFT on X,Y data.
+
+    Args:
+        x (np.ndarray): X data
+        y (np.ndarray): Y data
+        shift (bool, optional): Shift the zero frequency to the center of the spectrum.
+            Defaults to True.
+
+    Returns:
+        tuple[np.ndarray, np.ndarray]: X,Y data
+    """
     y1 = np.fft.fft(y)
-    x1 = np.fft.fftshift(np.fft.fftfreq(x.shape[-1], d=x[1] - x[0]))
+    x1 = np.fft.fftfreq(x.shape[-1], d=x[1] - x[0])
+    if shift:
+        x1 = np.fft.fftshift(x1)
+        y1 = np.fft.fftshift(y1)
     return x1, y1
 
 
-def xy_ifft(x, y):
-    """Compute iFFT on X,Y data"""
+def xy_ifft(x, y, shift=True):
+    """Compute iFFT on X,Y data.
+
+    Args:
+        x (np.ndarray): X data
+        y (np.ndarray): Y data
+        shift (bool, optional): Shift the zero frequency to the center of the spectrum.
+            Defaults to True.
+
+    Returns:
+        tuple[np.ndarray, np.ndarray]: X,Y data
+    """
+    x1 = np.fft.fftfreq(x.shape[-1], d=x[1] - x[0])
+    if shift:
+        x1 = np.fft.ifftshift(x1)
+        y = np.fft.ifftshift(y)
     y1 = np.fft.ifft(y)
-    x1 = np.fft.fftshift(np.fft.fftfreq(x.shape[-1], d=x[1] - x[0]))
-    return x1, y1
+    return x1, y1.real
 
 
 # ----- Peak detection functions -----------------------------------------------

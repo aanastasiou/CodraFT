@@ -3,6 +3,12 @@
 See CodraFT [roadmap page](https://codraft.readthedocs.io/en/latest/roadmap.html)
 for future and past milestones.
 
+## Version 2.2.1 ##
+
+Bug fixes:
+
+* Fixed 1D FFT (added optionnal frequency shift)
+
 ## Version 2.2.0 ##
 
 New features:
