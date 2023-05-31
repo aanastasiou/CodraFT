@@ -8,6 +8,7 @@ for future and past milestones.
 Bug fixes:
 
 * Fixed 1D FFT (added optionnal frequency shift)
+* Fixed ROI/pixel alignment issue
 
 ## Version 2.2.0 ##
 
