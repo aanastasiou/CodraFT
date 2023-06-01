@@ -35,6 +35,8 @@ new features, including:
 
 * Image displaying performance optimization
 
+* New "Preferences" dialog box to setup all configurable parameters
+
 * Support for plugins:
 
   * Custom processing features available in the "Plugins" menu
@@ -106,8 +108,6 @@ Other ideas for future releases
 * Add support for multichannel timeseries
 
 * Add support for timeseries
-
-* Add a "Preferences" dialog box to setup all configurable parameters
 
 Past milestones
 ---------------
